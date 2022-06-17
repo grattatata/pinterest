@@ -7,9 +7,10 @@ import ButtonEle from "../elements/ButtonEle";
 import { TextField } from "@mui/material";
 import { InputUnstyled } from "@mui/base";
 import { Link } from "react-router-dom";
+import UserImage from "../elements/UserImage";
 
 const Header = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   return (
@@ -48,13 +49,9 @@ const Header = () => {
               <ButtonEle
                 marginRight="8px"
                 backgroundColor="#E60B23"
-                text="로그인"
+                text="채팅"
               />
-              <ButtonEle
-                backgroundColor="#efefef"
-                color="black"
-                text="가입하기"
-              />
+              <UserImage small />
             </HeaderRight>
           </>
         ) : (
@@ -93,6 +90,7 @@ const HeaderWrap = styled.div`
 const HeaderLeft = styled.div`
   display: Flex;
   margin-left: 20px;
+  margin-right: 20px;
 `;
 
 const HeaderCenter = styled.div`
@@ -104,6 +102,7 @@ const HeaderRight = styled.div`
   width: 250px;
   display: flex;
   justify-content: right;
+  align-items: center;
 `;
 
 // const HeaderRightWrap = styled.div`
@@ -113,7 +112,7 @@ const HeaderRight = styled.div`
 
 const SearchInput = styled.input`
   all: unset;
-  width: 90%;
+  width: 100%;
   height: 100%;
   background-color: #e1e1e1;
   outline: none;
