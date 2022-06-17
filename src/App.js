@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Main from "./pages/Main";
+import Upload from "./pages/Upload";
+import PostDetail from "./pages/PostDetail";
+import Header from "./components/Header";
+import GlobalStyle from "./styles/GlobalStyle";
+import { useState } from "react";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <GlobalStyle />
+      <Routes>
+        {/* Main 페이지 */}
+        <Route path="/main" element={<Main />}></Route>
+        {/* Post 페이지 */}
+        <Route path="/post" element={<Main />}>
+          {/* Postdetail 페이지 */}
+          <Route path="postdetail/:id" element={<PostDetail />}></Route>
+          {/* Upload 페이지 */}
+          <Route path="upload" element={<Upload />}></Route>
+        </Route>
+      </Routes>
     </div>
   );
 }
