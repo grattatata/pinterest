@@ -27,7 +27,7 @@ export const loadPosts = (post_list) => {
   return { type: LOAD, post_list: post_list };
 };
 
-// middleware (communicate with ec2)
+// middleware (communic-ate with ec2)
 export const loadPostsFB = () => {
   return function (dispatch) {
     // 1. 이미지 파베 스토리지에 저장하는 코드
