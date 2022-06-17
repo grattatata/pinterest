@@ -1,15 +1,161 @@
 import React from "react";
 import styled from "styled-components";
 
+import { TextareaAutosize } from "@mui/base";
+import { Avatar, TextField } from "@mui/material";
+import { Input } from "@mui/material";
+
 const PostDetail = () => {
   return (
     <PostDetailStyle>
-      <div></div>
+      <FormWrap>
+        <FormStyle encType="multipart/form-data">
+          <ColumnWrap>
+            <ColumnLeft>
+              <Label htmlFor="input-file" className="img_label">
+                이미지업로드
+                <FileInput
+                  multiple
+                  type="file"
+                  accept="image/*"
+                  id="input-file"
+                  style={{ display: "none" }}
+                />
+              </Label>
+            </ColumnLeft>
+            <ColumnRight>
+              <SubmitInput type="submit" value="저장" />
+
+              <TextField placeholder="제목" name="title" />
+
+              <UserProfileWrap>
+                <Avatar small />
+                <span>vennydev</span>
+              </UserProfileWrap>
+
+              <TextareaAutosize
+                maxRows="4"
+                aria-label="maximum height"
+                placeholder="내용"
+                name="content"
+                style={{
+                  width: "100%",
+                  height: "80%",
+                  resize: "none",
+                  fontSize: "16px",
+                  padding: "16.5px 14px",
+                  border: "#fff",
+                }}
+              />
+            </ColumnRight>
+          </ColumnWrap>
+        </FormStyle>
+      </FormWrap>
     </PostDetailStyle>
   );
 };
 
 const PostDetailStyle = styled.div`
-  background-color: ;
+  background-color: #efefef;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  padding: 28px 0px;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 80px;
+`;
+
+const FormWrap = styled.div`
+  height: 70%;
+  width: 880px;
+  border-radius: 16px;
+  z-index: 9998;
+  background-color: white;
+  padding: 40px 40px 0px 40px;
+`;
+
+const FormStyle = styled.form`
+  padding: 30px 10px;
+  height: 100%;
+  position: relative;
+`;
+
+const ColumnWrap = styled.div`
+  margin: 0 auto;
+  height: 80%;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Label = styled.label`
+  background-color: #eaedef;
+  cursor: pointer;
+  height: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s linear;
+  color: #bcbcbc;
+  :hover {
+    background-color: #bcbcbc;
+    color: white;
+  }
+`;
+
+const FileInput = styled.input`
+  cursor: pointer;
+  width: 150px;
+`;
+
+const UserProfileWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const ColumnRight = styled.div`
+  height: 100%;
+  width: 45%;
+  display: Flex;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: space-between;
+  align-content: right;
+`;
+
+const ColumnLeft = styled.div`
+  height: 100%;
+  width: 45%;
+  display: Flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const SubmitInput = styled.input`
+  display: inline-block;
+  background-color: rgb(230, 0, 35);
+  border: none;
+  cursor: pointer;
+  flex: 0 0 auto;
+  height: 40px;
+  outline: 0px;
+  padding: 0px 14px;
+  border-radius: 0px 8px 8px 0px;
+  pointer-events: auto;
+  width: 50px;
+  color: white;
+  font-size: 15px;
+  text-align: center;
+  padding-left: 12px;
+  margin-bottom: 20px;
+  position: relative;
+  :hover {
+    background-color: silver;
+  }
 `;
 export default PostDetail;

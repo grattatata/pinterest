@@ -12,9 +12,10 @@ const GlobalStyle = createGlobalStyle`
         /* font-family: 'Noto Sans KR', sans-serif; */
         /* font-family: 'Ubuntu Mono', monospace; */
         font-family: 'Space Mono', monospace;
-        box-sizing: content-box;
+        box-sizing: border-box;
         width:100%;
     };
+    
     button{
         display: flex;
         cursor: pointer;
