@@ -3,14 +3,17 @@ import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
     ${reset};
+    *{
+  margin: 0;
+}
     body{
         padding: 0;
         margin: 0;
-        font-family: 'Noto Sans KR', sans-serif;
+        /* font-family: 'Noto Sans KR', sans-serif; */
+        /* font-family: 'Ubuntu Mono', monospace; */
         font-family: 'Space Mono', monospace;
-/* font-family: 'Ubuntu Mono', monospace; */
-box-sizing: content-box;
-width:100%;
+        box-sizing: content-box;
+        width:100%;
     };
     button{
         display: flex;
@@ -23,6 +26,7 @@ width:100%;
         outline: none;
         padding-left: 10px;
     }
+
 `;
 
 export default GlobalStyle;

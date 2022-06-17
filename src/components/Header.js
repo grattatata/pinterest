@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPinterest } from "@fortawesome/free-brands-svg-icons";
-import { Button } from "@mui/material";
+import { Button, Modal } from "@mui/material";
 import ButtonEle from "../elements/ButtonEle";
 import { TextField } from "@mui/material";
 import { InputUnstyled } from "@mui/base";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   return (
     <HeaderStyle>
@@ -41,21 +43,6 @@ const Header = () => {
           <>
             <HeaderCenter>
               <SearchInput type="text" placeholder="검색" />
-              {/* <InputUnstyled
-                style={{
-                  width: "90%",
-                  height: "100%",
-                  backgroundColor: "#E1E1E1",
-                  outline: "none",
-                  fontSize: "16px",
-                  borderRadius: "20px",
-                }}
-              /> */}
-              {/* <TextField
-                style={{
-                }}
-                id="fullWidth"
-              /> */}
             </HeaderCenter>
             <HeaderRight>
               <ButtonEle

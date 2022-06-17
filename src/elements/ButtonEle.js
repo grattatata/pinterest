@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@mui/material";
 
 const ButtonEle = (props) => {
-  console.log(props);
   return (
     <div>
       <Button
+        onClick={(e) => {
+          const buttonText = e.target.innerText;
+        }}
         variant="contained"
         style={{
           marginRight: `${props.marginRight}`,

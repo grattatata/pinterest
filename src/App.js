@@ -1,4 +1,3 @@
-import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Main from "./pages/Main";
 import Upload from "./pages/Upload";
@@ -6,6 +5,8 @@ import PostDetail from "./pages/PostDetail";
 import Header from "./components/Header";
 import GlobalStyle from "./styles/GlobalStyle";
 import { useState } from "react";
+import Input from "./elements/Input";
+import UserImage from "./elements/UserImage";
 
 function App() {
   return (
