@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Input = (props) => {
   return (
     <div>
-      <InputStyle type="text" placeholder="프롭스" />
+      <InputStyle type="text" placeholder={props.placeholder} />
     </div>
   );
 };
