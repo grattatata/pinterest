@@ -2,13 +2,26 @@ import React from "react";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
 
-const Modal = ({ text, closeModal }) => {
+const Modal = ({
+  text,
+  closeModal,
+  setIsLoginModalOpen,
+  setIsSignupModalOpen,
+}) => {
   return (
     <>
       {text === "로그인" ? (
-        <Login closeModal={closeModal} />
+        <Login
+          closeModal={closeModal}
+          setIsLoginModalOpen={setIsLoginModalOpen}
+          setIsSignupModalOpen={setIsSignupModalOpen}
+        />
       ) : (
-        <Signup closeModal={closeModal} />
+        <Signup
+          closeModal={closeModal}
+          setIsLoginModalOpen={setIsLoginModalOpen}
+          setIsSignupModalOpen={setIsSignupModalOpen}
+        />
       )}
     </>
   );

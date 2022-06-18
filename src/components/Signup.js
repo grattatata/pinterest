@@ -9,7 +9,7 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import "../styles/LoginNSignup.css";
 import axios from "axios";
 
-const Login = ({ closeModal }) => {
+const Login = ({ closeModal, setIsLoginModalOpen, setIsSignupModalOpen }) => {
   const [signupValue, setSignupValue] = useState({
     email: "",
     nickname: "",
@@ -26,18 +26,10 @@ const Login = ({ closeModal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(signupValue);
-    // axios
-    //   .post("http://dlckdals04.shop/user/signup", signupValue)
-    //   .then(function (response) {
-    //     alert(response.data.message);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+
     axios
       .post("http://dlckdals04.shop/user/signup", signupValue)
-      .then((response) => console.log(response))
+      .then((response) => alert(response.data.message))
       .catch((error) => alert(error.response.data.message));
   };
 
@@ -113,7 +105,15 @@ const Login = ({ closeModal }) => {
             />
             <span className="toLoginWrap">
               이미 회원이신가요?
-              <b className="toLoginBtn">로그인하기</b>
+              <b
+                className="toLoginBtn"
+                onClick={() => {
+                  setIsSignupModalOpen(false);
+                  setIsLoginModalOpen(true);
+                }}
+              >
+                로그인하기
+              </b>
             </span>
             <footer className="footer">
               <div>

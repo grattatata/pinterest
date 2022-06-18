@@ -85,10 +85,20 @@ const Header = ({ isLogin }) => {
       </HeaderWrap>
       <Outlet />
       {isLoginModalOpen ? (
-        <Modal text="로그인" closeModal={closeModal} />
+        <Modal
+          text="로그인"
+          closeModal={closeModal}
+          setIsLoginModalOpen={setIsLoginModalOpen}
+          setIsSignupModalOpen={setIsSignupModalOpen}
+        />
       ) : null}
       {isSignupModalOpen ? (
-        <Modal text="signup" closeModal={closeModal} />
+        <Modal
+          text="signup"
+          closeModal={closeModal}
+          setIsLoginModalOpen={setIsLoginModalOpen}
+          setIsSignupModalOpen={setIsSignupModalOpen}
+        />
       ) : null}
     </HeaderStyle>
   );

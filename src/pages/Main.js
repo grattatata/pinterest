@@ -5,7 +5,7 @@ import ButtonEle from "../elements/ButtonEle";
 const Main = () => {
   return (
     <div>
-      <ButtonEle />
+      <div></div>
     </div>
   );
 };
