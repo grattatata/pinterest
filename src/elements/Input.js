@@ -2,10 +2,15 @@ import React from "react";
 import styled from "styled-components";
 
 const Input = (props) => {
+  const widthPer = Number(props.widthPer);
   return (
-    <div>
-      <InputStyle type="text" placeholder="프롭스" />
-    </div>
+    <>
+      <InputStyle
+        type="text"
+        placeholder={props.placeholder}
+        style={{ width: `${widthPer}%` }}
+      ></InputStyle>
+    </>
   );
 };
 

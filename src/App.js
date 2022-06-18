@@ -5,8 +5,6 @@ import PostDetail from "./pages/PostDetail";
 import Header from "./components/Header";
 import GlobalStyle from "./styles/GlobalStyle";
 import { useState } from "react";
-import Input from "./elements/Input";
-import UserImage from "./elements/UserImage";
 import Post from "./pages/Post";
 
 function App() {

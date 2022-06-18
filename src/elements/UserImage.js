@@ -5,13 +5,13 @@ const UserImage = ({ size }) => {
   return (
     <div>
       {size === "small" ? (
-        <div>
+        <>
           <Avatar
             alt="Remy Sharp"
             src="/static/images/avatar/1.jpg"
-            sx={{ width: 24, height: 24 }}
+            sx={{ width: 32, height: 32 }}
           />
-        </div>
+        </>
       ) : (
         <div>
           <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
