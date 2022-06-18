@@ -10,11 +10,11 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         margin: 0;
         font-family: 'Noto Sans KR', sans-serif;
-        /* font-family: 'Ubuntu Mono', monospace; */
-        // font-family: 'Space Mono', monospace;
-        box-sizing: content-box;
+        font-family: 'Space Mono', monospace;
+        box-sizing: border-box;
         width:100%;
     };
+    
     button{
         display: flex;
         cursor: pointer;

@@ -5,8 +5,7 @@ import PostDetail from "./pages/PostDetail";
 import Header from "./components/Header";
 import GlobalStyle from "./styles/GlobalStyle";
 import { useState } from "react";
-import Input from "./elements/Input";
-import UserImage from "./elements/UserImage";
+import Post from "./pages/Post";
 
 function App() {
   return (
@@ -15,14 +14,13 @@ function App() {
       <GlobalStyle />
       <Routes>
         {/* Main 페이지 */}
-        <Route path="/main" element={<Main />}></Route>
+        <Route path="/main" element={<Main />} />
         {/* Post 페이지 */}
-        <Route path="/post" element={<Main />}>
-          {/* Postdetail 페이지 */}
-          <Route path="postdetail/:id" element={<PostDetail />}></Route>
-          {/* Upload 페이지 */}
-          <Route path="upload" element={<Upload />}></Route>
-        </Route>
+        <Route path="/post" element={<Post />} />
+        {/* Postdetail 페이지 */}
+        <Route path="/post/postdetail" element={<PostDetail />} />
+        {/* Upload 페이지 */}
+        <Route path="upload" element={<Upload />} />
       </Routes>
     </div>
   );
