@@ -29,7 +29,7 @@ const Upload = () => {
               <TextField placeholder="제목" name="title" />
 
               <UserProfileWrap>
-                <Avatar small />
+                <Avatar size="small" />
                 <span>vennydev</span>
               </UserProfileWrap>
 

@@ -2,22 +2,23 @@ import React from "react";
 import styled from "styled-components";
 
 const Input = (props) => {
-  const widthPer = Number(props.widthPer);
+  const { widthPer, widthPx } = props;
   return (
     <>
       <InputStyle
         type="text"
         placeholder={props.placeholder}
-        style={{ width: `${widthPer}%` }}
+        style={{ width: widthPer ? widthPer : widthPx }}
       ></InputStyle>
     </>
   );
 };
 
 const InputStyle = styled.input`
+  box-sizing: border-box;
   border: 2px solid #cdcdcd;
   padding: 8px 16px;
-  min-height: 32px;
+  min-height: 48px;
   max-width: 100%;
   white-space: nowrap;
   font-size: 16px;

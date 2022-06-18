@@ -2,28 +2,35 @@ import React, { useState } from "react";
 import { Button } from "@mui/material";
 
 const ButtonEle = (props) => {
-  if (modalIsOpen === false) {
-    setModalIsOpen(true);
-  }
+  const {
+    marginRight,
+    backgroundColor,
+    color,
+    margin,
+    widthPer,
+    fontSize,
+    height,
+  } = props;
+  const { handleModal } = props;
   return (
-    <div>
+    <>
       <Button
-        onClick={(e) => {
-          const buttonText = e.target.innerText;
-          setTest(true);
-        }}
+        onClick={handleModal}
         variant="contained"
         style={{
-          marginRight: `${props.marginRight}`,
-          backgroundColor: `${props.backgroundColor}`,
+          marginRight: marginRight,
+          backgroundColor: backgroundColor,
           borderRadius: "20px",
-          color: `${props.color}`,
-          width: "90px",
+          color: color,
+          width: widthPer ? widthPer : "90px",
+          margin: `${margin} 0px`,
+          fontSize: fontSize,
+          height: height,
         }}
       >
         {props.text}
       </Button>
-    </div>
+    </>
   );
 };
 
