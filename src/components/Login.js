@@ -9,6 +9,16 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import "../styles/LoginNSignup.css";
 
 const Login = ({ closeModal }) => {
+  const [loginValue, setLoginValue] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("서버로 회원가입 데이터를 보냅니다.");
+  };
+
   return (
     <div className="modalBackground">
       <div className="signup-default-modal">
@@ -22,7 +32,7 @@ const Login = ({ closeModal }) => {
           />
           <h1 className="login-title">Hangterest에 오신 것을 환영합니다</h1>
           <div className="FormWrap">
-            <form className="registerForm">
+            <form className="registerForm" onSubmit={handleSubmit}>
               <div>
                 <label className="label">이메일</label>
                 <Input placeholder="이메일" widthPer="100%" />
@@ -41,7 +51,7 @@ const Login = ({ closeModal }) => {
               fontSize="15px"
               height="40px"
             />
-            <span class="or">또는</span>
+            <span className="or">또는</span>
             <ButtonEle
               backgroundColor="#F3DC01"
               text="카카오톡으로 계속하기"
@@ -66,7 +76,7 @@ const Login = ({ closeModal }) => {
               </div>
             </footer>
           </div>
-          <HighlightOffIcon className="Xicon" />
+          <HighlightOffIcon className="Xicon" onClick={closeModal} />
         </div>
       </div>
     </div>

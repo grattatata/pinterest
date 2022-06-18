@@ -6,13 +6,14 @@ import Header from "./components/Header";
 import GlobalStyle from "./styles/GlobalStyle";
 import { useState } from "react";
 import Post from "./pages/Post";
+import ButtonEle from "./elements/ButtonEle";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
-
   return (
     <div className="App">
       <GlobalStyle />
+
       <Routes>
         {isLogin ? (
           <Route path="/main" element={<Header isLogin={isLogin} />}>

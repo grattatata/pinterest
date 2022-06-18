@@ -10,12 +10,14 @@ const ButtonEle = (props) => {
     widthPer,
     fontSize,
     height,
+    text,
   } = props;
-  const { handleModal } = props;
+
+  const { handleClick } = props;
   return (
     <>
       <Button
-        onClick={handleModal}
+        onClick={handleClick}
         variant="contained"
         style={{
           marginRight: marginRight,
@@ -28,7 +30,7 @@ const ButtonEle = (props) => {
           height: height,
         }}
       >
-        {props.text}
+        {text}
       </Button>
     </>
   );

@@ -77,7 +77,7 @@
 
 .or,
 .toLoginWrap {
-  margin: 10px 0px 20px 0px;
+  margin: 10px 0px 10px 0px;
 }
 
 .toLoginBtn {
@@ -85,12 +85,16 @@
   margin-left: 8px;
 }
 
+.footer {
+  margin-top: 10px;
+}
+
 .footer div {
   font-size: 12px;
   align-self: flex-start;
   text-align: start;
-  margin-bottom: 5px;
   color: rgb(118, 118, 118);
+  margin-bottom: 3px;
 }
 
 .footer div b {

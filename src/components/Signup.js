@@ -7,8 +7,40 @@ import { faPinterest } from "@fortawesome/free-brands-svg-icons";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 import "../styles/LoginNSignup.css";
+import axios from "axios";
 
 const Login = ({ closeModal }) => {
+  const [signupValue, setSignupValue] = useState({
+    email: "",
+    nickname: "",
+    password: "",
+    passwordCheck: "",
+  });
+
+  const { email, nickname, password, passwordCheck } = signupValue;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setSignupValue({ ...signupValue, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(signupValue);
+    // axios
+    //   .post("http://dlckdals04.shop/user/signup", signupValue)
+    //   .then(function (response) {
+    //     alert(response.data.message);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+    axios
+      .post("http://dlckdals04.shop/user/signup", signupValue)
+      .then((response) => console.log(response))
+      .catch((error) => alert(error.response.data.message));
+  };
+
   return (
     <div className="modalBackground">
       <div className="signup-default-modal">
@@ -25,19 +57,39 @@ const Login = ({ closeModal }) => {
             <form className="registerForm">
               <div>
                 <label className="label">이메일</label>
-                <Input placeholder="이메일" widthPer="100%" />
+                <Input
+                  placeholder="이메일"
+                  widthPer="100%"
+                  handleChange={handleChange}
+                  name="email"
+                />
               </div>
               <div>
                 <label>닉네임</label>
-                <Input placeholder="닉네임" widthPer="100%" />
+                <Input
+                  placeholder="닉네임"
+                  widthPer="100%"
+                  handleChange={handleChange}
+                  name="nickname"
+                />
               </div>
               <div>
                 <label>비밀번호</label>
-                <Input placeholder="비밀번호" widthPer="100%" />
+                <Input
+                  placeholder="비밀번호"
+                  widthPer="100%"
+                  handleChange={handleChange}
+                  name="password"
+                />
               </div>
               <div>
                 <label>비밀번호</label>
-                <Input placeholder="비밀번호" widthPer="100%" />
+                <Input
+                  placeholder="비밀번호"
+                  widthPer="100%"
+                  handleChange={handleChange}
+                  name="passwordCheck"
+                />
               </div>
             </form>
             <ButtonEle
@@ -47,8 +99,9 @@ const Login = ({ closeModal }) => {
               widthPer="100%"
               fontSize="15px"
               height="40px"
+              handleClick={handleSubmit}
             />
-            <span class="or">또는</span>
+            <span className="or">또는</span>
             <ButtonEle
               backgroundColor="#F3DC01"
               text="카카오톡으로 계속하기"
@@ -73,7 +126,7 @@ const Login = ({ closeModal }) => {
               </div>
             </footer>
           </div>
-          <HighlightOffIcon className="Xicon" />
+          <HighlightOffIcon className="Xicon" onClick={closeModal} />
         </div>
       </div>
     </div>

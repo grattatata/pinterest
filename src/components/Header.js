@@ -20,6 +20,11 @@ const Header = ({ isLogin }) => {
     setIsSignupModalOpen(!isSignupModalOpen);
   };
 
+  const closeModal = () => {
+    setIsLoginModalOpen(false);
+    setIsSignupModalOpen(false);
+  };
+
   return (
     <HeaderStyle>
       <HeaderWrap>
@@ -67,20 +72,24 @@ const Header = ({ isLogin }) => {
               marginRight="8px"
               backgroundColor="#E60B23"
               text="로그인"
-              handleModal={handleLogin}
+              handleClick={handleLogin}
             />
             <ButtonEle
               backgroundColor="#efefef"
               color="black"
               text="가입하기"
-              handleModal={handleSignUp}
+              handleClick={handleSignUp}
             />
           </HeaderRight>
         )}
       </HeaderWrap>
       <Outlet />
-      {isLoginModalOpen ? <Modal text="로그인" /> : null}
-      {isSignupModalOpen ? <Modal text="signup" /> : null}
+      {isLoginModalOpen ? (
+        <Modal text="로그인" closeModal={closeModal} />
+      ) : null}
+      {isSignupModalOpen ? (
+        <Modal text="signup" closeModal={closeModal} />
+      ) : null}
     </HeaderStyle>
   );
 };
