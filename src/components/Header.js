@@ -2,15 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPinterest } from "@fortawesome/free-brands-svg-icons";
-import { Button, Modal } from "@mui/material";
 import ButtonEle from "../elements/ButtonEle";
-import { TextField } from "@mui/material";
-import { InputUnstyled } from "@mui/base";
-import { Link } from "react-router-dom";
 import UserImage from "../elements/UserImage";
+import LoginModal from "./Login";
 
 const Header = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   return (
@@ -60,14 +57,20 @@ const Header = () => {
               marginRight="8px"
               backgroundColor="#E60B23"
               text="로그인"
+              onClick={setModal}
             />
+            {modalIsOpen === true ? (
+              <LoginModal closeModal={setModalIsOpen} />
+            ) : null}
             <ButtonEle
               backgroundColor="#efefef"
               color="black"
               text="가입하기"
             />
+            {console.log(modalIsOpen)}
           </HeaderRight>
         )}
+        {/* <LoginModal open={modalIsOpen} onClose={() => setModalIsOpen(false)} /> */}
       </HeaderWrap>
     </HeaderStyle>
   );
@@ -91,6 +94,7 @@ const HeaderLeft = styled.div`
   display: Flex;
   margin-left: 20px;
   margin-right: 20px;
+  font-family: "Space Mono", monospace;
 `;
 
 const HeaderCenter = styled.div`
