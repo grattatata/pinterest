@@ -16,14 +16,17 @@ function App() {
 
       <Routes>
         {isLogin ? (
-          <Route path="/main" element={<Header isLogin={isLogin} />}>
+          <Route path="/main" element={<Header setIsLogin={setIsLogin} />}>
             <Route path="main" element={<Main />} />
             <Route path="post" element={<Post />} />
             <Route path="post/postdetail" element={<PostDetail />} />
             <Route path="upload" element={<Upload />} />
           </Route>
         ) : (
-          <Route path="/main" element={<Header isLogin={isLogin} />}></Route>
+          <Route
+            path="/main"
+            element={<Header setIsLogin={setIsLogin} />}
+          ></Route>
         )}
       </Routes>
     </div>

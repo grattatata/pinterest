@@ -9,7 +9,7 @@ import Modal from "../elements/Modal";
 import { Button } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
-const Header = ({ isLogin }) => {
+const Header = ({ isLogin, setIsLogin }) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const handleLogin = () => {

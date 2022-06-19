@@ -24,12 +24,15 @@ const Login = ({ closeModal, setIsLoginModalOpen, setIsSignupModalOpen }) => {
     e.preventDefault();
     console.log("서버로 회원가입 데이터를 보냅니다.");
     console.log(loginValue);
+    axios
+      .post("http://dlckdals04.shop/user/login", loginValue)
+      .then((response) => {
+        console.log(response);
+        alert("회원가입이 완료되었습니다!");
+        setIsLoginModalOpen(false);
+      })
+      .catch((error) => console.log(error));
   };
-
-  // axios
-  //   .post("http://localhost:3000/user-info", loginValue)
-  //   .then((response) => console.log(response))
-  //   .catch((error) => alert(error.response.data.message));
 
   return (
     <div className="modalBackground">
@@ -61,7 +64,7 @@ const Login = ({ closeModal, setIsLoginModalOpen, setIsSignupModalOpen }) => {
                   placeholder="비밀번호"
                   widthPer="100%"
                   handleChange={handleChange}
-                  name="nickname"
+                  name="password"
                 />
               </div>
             </form>

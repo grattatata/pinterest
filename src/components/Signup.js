@@ -29,7 +29,11 @@ const Login = ({ closeModal, setIsLoginModalOpen, setIsSignupModalOpen }) => {
 
     axios
       .post("http://dlckdals04.shop/user/signup", signupValue)
-      .then((response) => alert(response.data.message))
+      .then((response) => {
+        alert(response.data.message);
+        setIsSignupModalOpen(false);
+        setIsLoginModalOpen(true);
+      })
       .catch((error) => alert(error.response.data.message));
   };
 
