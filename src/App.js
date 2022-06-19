@@ -6,21 +6,25 @@ import Header from "./components/Header";
 import GlobalStyle from "./styles/GlobalStyle";
 import { useState } from "react";
 import Post from "./pages/Post";
+import ButtonEle from "./elements/ButtonEle";
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
   return (
     <div className="App">
-      <Header />
       <GlobalStyle />
+
       <Routes>
-        {/* Main 페이지 */}
-        <Route path="/main" element={<Main />} />
-        {/* Post 페이지 */}
-        <Route path="/post" element={<Post />} />
-        {/* Postdetail 페이지 */}
-        <Route path="/post/postdetail" element={<PostDetail />} />
-        {/* Upload 페이지 */}
-        <Route path="upload" element={<Upload />} />
+        {isLogin ? (
+          <Route path="/main" element={<Header isLogin={isLogin} />}>
+            <Route path="main" element={<Main />} />
+            <Route path="post" element={<Post />} />
+            <Route path="post/postdetail" element={<PostDetail />} />
+            <Route path="upload" element={<Upload />} />
+          </Route>
+        ) : (
+          <Route path="/main" element={<Header isLogin={isLogin} />}></Route>
+        )}
       </Routes>
     </div>
   );

@@ -4,11 +4,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPinterest } from "@fortawesome/free-brands-svg-icons";
 import ButtonEle from "../elements/ButtonEle";
 import UserImage from "../elements/UserImage";
-import LoginModal from "./Login";
+import Login from "./Login";
+import Modal from "../elements/Modal";
+import { Button } from "@mui/material";
+import { Outlet } from "react-router-dom";
 
-const Header = () => {
-  const [isLogin, setIsLogin] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+const Header = ({ isLogin }) => {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+  const handleLogin = () => {
+    setIsLoginModalOpen(!isLoginModalOpen);
+  };
+
+  const handleSignUp = () => {
+    setIsSignupModalOpen(!isSignupModalOpen);
+  };
+
+  const closeModal = () => {
+    setIsLoginModalOpen(false);
+    setIsSignupModalOpen(false);
+  };
 
   return (
     <HeaderStyle>
@@ -48,7 +63,7 @@ const Header = () => {
                 backgroundColor="#E60B23"
                 text="채팅"
               />
-              <UserImage small />
+              <UserImage size="small" />
             </HeaderRight>
           </>
         ) : (
@@ -57,21 +72,34 @@ const Header = () => {
               marginRight="8px"
               backgroundColor="#E60B23"
               text="로그인"
-              onClick={setModal}
+              handleClick={handleLogin}
             />
-            {modalIsOpen === true ? (
-              <LoginModal closeModal={setModalIsOpen} />
-            ) : null}
             <ButtonEle
               backgroundColor="#efefef"
               color="black"
               text="가입하기"
+              handleClick={handleSignUp}
             />
-            {console.log(modalIsOpen)}
           </HeaderRight>
         )}
-        {/* <LoginModal open={modalIsOpen} onClose={() => setModalIsOpen(false)} /> */}
       </HeaderWrap>
+      <Outlet />
+      {isLoginModalOpen ? (
+        <Modal
+          text="로그인"
+          closeModal={closeModal}
+          setIsLoginModalOpen={setIsLoginModalOpen}
+          setIsSignupModalOpen={setIsSignupModalOpen}
+        />
+      ) : null}
+      {isSignupModalOpen ? (
+        <Modal
+          text="signup"
+          closeModal={closeModal}
+          setIsLoginModalOpen={setIsLoginModalOpen}
+          setIsSignupModalOpen={setIsSignupModalOpen}
+        />
+      ) : null}
     </HeaderStyle>
   );
 };
