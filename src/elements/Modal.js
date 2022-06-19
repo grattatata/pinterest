@@ -7,6 +7,7 @@ const Modal = ({
   closeModal,
   setIsLoginModalOpen,
   setIsSignupModalOpen,
+  setIsLogin,
 }) => {
   return (
     <>
@@ -15,6 +16,7 @@ const Modal = ({
           closeModal={closeModal}
           setIsLoginModalOpen={setIsLoginModalOpen}
           setIsSignupModalOpen={setIsSignupModalOpen}
+          setIsLogin={setIsLogin}
         />
       ) : (
         <Signup

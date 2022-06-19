@@ -8,8 +8,15 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 import "../styles/LoginNSignup.css";
 import axios from "axios";
+import { setCookie } from "../shared/cookie";
+import { useNavigate } from "react-router-dom";
 
-const Login = ({ closeModal, setIsLoginModalOpen, setIsSignupModalOpen }) => {
+const Login = ({
+  setIsLogin,
+  closeModal,
+  setIsLoginModalOpen,
+  setIsSignupModalOpen,
+}) => {
   const [loginValue, setLoginValue] = useState({
     email: "",
     password: "",
@@ -19,6 +26,7 @@ const Login = ({ closeModal, setIsLoginModalOpen, setIsSignupModalOpen }) => {
     const { name, value } = e.target;
     setLoginValue({ ...loginValue, [name]: value });
   };
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,8 +35,10 @@ const Login = ({ closeModal, setIsLoginModalOpen, setIsSignupModalOpen }) => {
     axios
       .post("http://dlckdals04.shop/user/login", loginValue)
       .then((response) => {
-        console.log(response);
-        alert("회원가입이 완료되었습니다!");
+        setCookie("myToken", response.data.token, { path: "/" });
+        alert("로그인이 완료되었습니다!");
+        navigate("/post");
+        setIsLogin(true);
         setIsLoginModalOpen(false);
       })
       .catch((error) => console.log(error));
