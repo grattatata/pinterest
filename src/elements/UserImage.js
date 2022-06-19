@@ -7,7 +7,7 @@ const UserImage = ({ size }) => {
       {size === "small" ? (
         <>
           <Avatar
-            alt="Remy Sharp"
+            alt="Vemy Sharp"
             src="/static/images/avatar/1.jpg"
             sx={{ width: 32, height: 32 }}
           />

@@ -90,6 +90,7 @@ const Header = ({ isLogin, setIsLogin }) => {
           closeModal={closeModal}
           setIsLoginModalOpen={setIsLoginModalOpen}
           setIsSignupModalOpen={setIsSignupModalOpen}
+          setIsLogin={setIsLogin}
         />
       ) : null}
       {isSignupModalOpen ? (
