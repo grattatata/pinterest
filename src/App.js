@@ -14,20 +14,6 @@ import { addList, getList } from "./store/todoReducer";
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
-
-  // const onCreate = (e) => {
-  //   e.preventDefault();
-  // if (inputValue) {
-  //   const newList = { content: inputValue };
-  //   dispatch(addList(newList));
-  // } else {
-  //   console.log("적으세요!");
-  // }
-  // };
-
-  // useEffect(() => {
-  //   dispatch(getList());
-  // }, []);
   return (
     <div className="App">
       <GlobalStyle />
@@ -47,7 +33,7 @@ function App() {
             element={<Header isLogin={isLogin} setIsLogin={setIsLogin} />}
           ></Route>
         )} */}
-        <Route path="upload" element={<Upload />} />
+        <Route path="/post" element={<Post />} />
       </Routes>
     </div>
   );
