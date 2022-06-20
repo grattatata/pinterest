@@ -26,20 +26,47 @@ const Login = ({
     const { name, value } = e.target;
     setLoginValue({ ...loginValue, [name]: value });
   };
+
+  let sessionStorage = window.sessionStorage;
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("서버로 회원가입 데이터를 보냅니다.");
-    console.log(loginValue);
-    axios
-      .post("http://dlckdals04.shop/user/login", loginValue)
+    // axios
+    //   .post("http://dlckdals04.shop/user/login", loginValue)
+    //   .then((response) => {
+    //     setCookie("myToken", response.data.token, { path: "/" });
+    //     localStorage.setItem("myToken", JSON.stringify(response.data.token));
+    //     // sessionStorage.setItem("loginId", response.data.token);
+
+    //     alert("로그인이 완료되었습니다!");
+    //     navigate("/post");
+    //     setIsLogin(true);
+    //     setIsLoginModalOpen(false);
+    //   })
+    //   .catch((error) => console.log(error));
+
+    axios({
+      method: "post",
+      // headers: {
+      //   Authorization: localStorage.getItem("jwt-token"),
+      // },
+      url: "http://dlckdals04.shop/user/login",
+      data: {
+        email: loginValue.email,
+        password: loginValue.password,
+      },
+    })
       .then((response) => {
-        setCookie("myToken", response.data.token, { path: "/" });
-        alert("로그인이 완료되었습니다!");
+        console.log(response.headers);
+        // localStorage.setItem("jwt-token", response.data.token);
+
         navigate("/post");
+        alert("로그인에 성공하였습니다!");
         setIsLogin(true);
         setIsLoginModalOpen(false);
+        axios.get();
       })
       .catch((error) => console.log(error));
   };

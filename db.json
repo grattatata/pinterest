@@ -1,20 +1,25 @@
 {
-  "user-info": [
+  "list": [
     {
-      "email": "hs421@naver.com",
-      "password": "leema425"
+      "title": "제목입니다",
+      "content": "반가워요1",
+      "imageUrl": "image.jpg"
     },
     {
-      "email": "soso123@naver.com",
-      "password": "leema425"
+      "title": "헤헤헤",
+      "content": "반가워요2",
+      "imageUrl": "image.jpg"
     },
     {
-      "email": "son123@naver.com",
-      "password": "leema425"
+      "title": "홓호호호",
+      "content": "반가워요3",
+      "imageUrl": "image.jpg"
     },
     {
-      "email": "mmama@naver.com",
-      "password": "leema425"
+      "id": 1,
+      "title": "ㅎㅇㅎㅇㅎㅇㅎㅇ",
+      "content": "반가워요1",
+      "imageUrl": "image.jpg"
     }
   ]
 }
