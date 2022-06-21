@@ -11,6 +11,11 @@ const ButtonEle = (props) => {
     fontSize,
     height,
     text,
+    position,
+    top,
+    left,
+    right,
+    bottom,
   } = props;
 
   const { handleClick } = props;
@@ -28,6 +33,11 @@ const ButtonEle = (props) => {
           margin: `${margin} 0px`,
           fontSize: fontSize,
           height: height,
+          position: position,
+          top: top,
+          left: left,
+          right: right,
+          bottom: bottom,
         }}
       >
         {text}
