@@ -12,6 +12,14 @@ import { useSelector, useDispatch } from "react-redux";
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
+
+  // 쿠키에 토큰있을 시 로그인 변수 상태 true
+  useEffect(() => {
+    if (getCookie("myToken")) {
+      setIsLogin(true);
+    }
+  }, []);
+
   return (
     <div className="App">
       <GlobalStyle />
@@ -29,7 +37,9 @@ function App() {
           <Route
             path="/"
             element={<Header isLogin={isLogin} setIsLogin={setIsLogin} />}
-          ></Route>
+          >
+            <Route path="/main" element={<Main />}></Route>
+          </Route>
         )}
       </Routes>
     </div>

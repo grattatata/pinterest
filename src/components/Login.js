@@ -21,41 +21,47 @@ const Login = ({
     email: "",
     password: "",
   });
+  const headers = { withCredentials: true };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginValue({ ...loginValue, [name]: value });
   };
 
-  let sessionStorage = window.sessionStorage;
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("서버로 회원가입 데이터를 보냅니다.");
-    axios({
-      method: "post",
-      // headers: {
-      //   Authorization: localStorage.getItem("jwt-token"),
-      // },
-      url: "http://dlckdals04.shop/user/login",
-      data: {
-        email: loginValue.email,
-        password: loginValue.password,
-      },
-    })
+    axios
+      .post("/user/login", loginValue)
       .then((response) => {
-        const accesssTk = response.data.accessToken;
-        setCookie("jwt-token", accesssTk, { path: "/" });
+        const { accessToken } = response.data;
+        setCookie("myToken", accessToken);
+
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${accessToken}`;
 
         navigate("/post");
         alert("로그인에 성공하였습니다!");
         setIsLogin(true);
         setIsLoginModalOpen(false);
-        axios.get();
       })
       .catch((error) => console.log(error));
   };
+
+  // const onSilentRefresh = () => {
+  //   axios.post("/");
+  // };
+
+  // const onLoginSuccess = (response) => {
+  //   const { accessToken } = response.data;
+
+  //   axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
+  //   setTimeout(onSilentRefresh, JWT_EXPIRRY_TIME - 60000);
+  // };
 
   return (
     <div className="modalBackground">

@@ -20,6 +20,8 @@ const Upload = () => {
 
   const dispatch = useDispatch();
 
+  axios.get("http://dlckdals04.shop");
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(uploadInfo);

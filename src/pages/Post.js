@@ -29,6 +29,12 @@ const Post = () => {
         })}
       </Container>
     </Wrapper>
+    // <div>
+    //   {postList.map((post) => {
+    //     console.log(post.title, post.content);
+    //   })}
+    //   <button onClick={toUpload}>업로드 버튼</button>
+    // </div>
   );
 };
 
