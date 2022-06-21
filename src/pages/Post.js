@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 // import { loadPosts } from "../redux/modules/posts";
 import { useNavigate } from "react-router-dom";
 import { getList } from "../store/postReducer";
+import Pin from "../elements/Pin";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import styled from "styled-components";
 import "../styles/Post.css";
@@ -12,9 +14,6 @@ const Post = () => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.postReducer);
   console.log(postList);
-  const toUpload = () => {
-    navigate("/upload");
-  };
 
   useEffect(() => {
     dispatch(getList());
@@ -24,17 +23,27 @@ const Post = () => {
     <Wrapper>
       <Container className="main__container">
         {postList.map((pin, index) => {
-          let { urls } = pin;
-          return <Pin key={index} urls={urls} />;
+          return <Pin key={index} imageUrl={postList[index].imageUrl} />;
         })}
       </Container>
+      <AddCircleIcon
+        onClick={() => {
+          navigate("/upload");
+        }}
+        style={{
+          position: "fixed",
+          height: "60px",
+          width: "60px",
+          zIndex: "9100",
+          right: "20px",
+          bottom: "20px",
+          cursor: "pointer",
+          color: "white",
+          backgroundColor: "lightgrey",
+          borderRadius: "30px",
+        }}
+      />
     </Wrapper>
-    // <div>
-    //   {postList.map((post) => {
-    //     console.log(post.title, post.content);
-    //   })}
-    //   <button onClick={toUpload}>업로드 버튼</button>
-    // </div>
   );
 };
 

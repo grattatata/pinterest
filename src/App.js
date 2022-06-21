@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Post from "./pages/Post";
 import ButtonEle from "./elements/ButtonEle";
 import { useSelector, useDispatch } from "react-redux";
+import { getCookie, setCookie } from "./shared/cookie";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);

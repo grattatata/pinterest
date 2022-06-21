@@ -1,12 +1,16 @@
 import React from "react";
+import styled from "styled-components";
 
 const Pin = (props) => {
-  let { urls } = props;
+  let { imageUrl } = props;
 
   return (
     <Wrapper>
       <Container>
-        <img src={urls?.regular} alt="pin" />
+        <img src={imageUrl} alt="pin" />
+        <div className="overlay">
+          <div className="content"></div>
+        </div>
       </Container>
     </Wrapper>
   );
