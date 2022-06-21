@@ -1,147 +1,73 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 
-import { TextareaAutosize } from "@mui/base";
-import { TextField } from "@mui/material";
 import Input from "../elements/Input";
 import UserImage from "../elements/UserImage";
+import { useDispatch, useSelector } from "react-redux";
+import { getPostDetail } from "../store/postReducer";
 
 const PostDetail = () => {
+  const params = useParams();
+  const boardId = Number(params.postId);
+  const dispatch = useDispatch();
+  const post = useSelector((state) => state.postReducer);
+
+  useEffect(() => {
+    dispatch(getPostDetail(boardId));
+  }, []);
+
   return (
     <PostDetailStyle>
-      <FormWrap>
-        <FormStyle encType="multipart/form-data">
-          <ColumnWrap>
-            <ColumnLeft>
-              <Label htmlFor="input-file" className="img_label">
-                이미지업로드
-                <FileInput
-                  multiple
-                  type="file"
-                  accept="image/*"
-                  id="input-file"
-                  style={{ display: "none" }}
-                />
-              </Label>
-            </ColumnLeft>
+      {post[0]?.postDetail?.title !== undefined ? (
+        <FormWrap>
+          <FormStyle encType="multipart/form-data">
+            <ColumnWrap>
+              <ColumnLeft>
+                <Label htmlFor="input-file" className="img_label">
+                  <ImageTag src={post[0].postDetail.imageUrl} alt="image" />
+                </Label>
+              </ColumnLeft>
 
-            <ColumnRight>
-              {/* SubmitButtonWrap */}
-              <SubmitInput type="submit" value="저장" />
+              <ColumnRight>
+                {/* SubmitButtonWrap */}
+                <SubmitInput type="submit" value="저장" />
 
-              {/* MetaInfoWrap */}
-              <div>
-                <ContentsInfo>
-                  <MetaInfo>
-                    <ContentsTitle>My favorite picture</ContentsTitle>
-                    <ContentsText>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Voluptate odit minus quo quia quam corrupti illum,
-                      delectus quas id voluptatibus ratione, velit itaque
-                      veritatis neque explicabo at labore alias sequi?
-                    </ContentsText>
-                  </MetaInfo>
-                  <UserProfileWrap>
-                    <UserImage size="small" />
-                    <span>Leonardo</span>
-                  </UserProfileWrap>
-                </ContentsInfo>
+                {/* MetaInfoWrap */}
+                <div>
+                  <ContentsInfo>
+                    <MetaInfo>
+                      <ContentsTitle>{post[0].postDetail.title}</ContentsTitle>
+                      <ContentsText>{post[0].postDetail.content}</ContentsText>
+                    </MetaInfo>
+                    <UserProfileWrap>
+                      <UserImage size="small" />
 
-                <CommentsContents>
-                  <CommentCount>
-                    댓글<span>3개</span>
-                  </CommentCount>
-                  <CommentsLists>
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>vennydev</CommentAuthor>
-                        <CommentText>
-                          이런 그림은 어떻게 그리시죠? 대단하시넹요!
-                        </CommentText>
-                      </CommentWrap>
-                    </Comment>
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>supsuplee</CommentAuthor>
-                        <CommentText>진심...대박</CommentText>
-                      </CommentWrap>
-                    </Comment>{" "}
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>sup421</CommentAuthor>
-                        <CommentText>오바한다;</CommentText>
-                      </CommentWrap>
-                    </Comment>
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>sup421</CommentAuthor>
-                        <CommentText>오바한다;</CommentText>
-                      </CommentWrap>
-                    </Comment>{" "}
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>sup421</CommentAuthor>
-                        <CommentText>오바한다;</CommentText>
-                      </CommentWrap>
-                    </Comment>{" "}
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>sup421</CommentAuthor>
-                        <CommentText>오바한다;</CommentText>
-                      </CommentWrap>
-                    </Comment>
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>sup421</CommentAuthor>
-                        <CommentText>오바한다;</CommentText>
-                      </CommentWrap>
-                    </Comment>
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>sup421</CommentAuthor>
-                        <CommentText>오바한다;</CommentText>
-                      </CommentWrap>
-                    </Comment>
-                  </CommentsLists>
-                </CommentsContents>
+                      <span>{post[0].postDetail.nickname}</span>
+                    </UserProfileWrap>
+                  </ContentsInfo>
 
-                <CommentFill>
-                  <UserProfileWrap>
-                    <UserImage />
-                  </UserProfileWrap>
-                  <CommentInputWrap>
-                    <Input placeholder="댓글 추가" widthPer="100"></Input>
-                  </CommentInputWrap>
-                </CommentFill>
-              </div>
-            </ColumnRight>
-          </ColumnWrap>
-        </FormStyle>
-      </FormWrap>
+                  <CommentsContents>
+                    <CommentCount>
+                      댓글<span>0개</span>
+                    </CommentCount>
+                    <CommentsLists></CommentsLists>
+                  </CommentsContents>
+
+                  <CommentFill>
+                    <UserProfileWrap>
+                      <UserImage />
+                    </UserProfileWrap>
+                    <CommentInputWrap>
+                      <Input placeholder="댓글 추가" widthPer="100"></Input>
+                    </CommentInputWrap>
+                  </CommentFill>
+                </div>
+              </ColumnRight>
+            </ColumnWrap>
+          </FormStyle>
+        </FormWrap>
+      ) : null}
     </PostDetailStyle>
   );
 };
@@ -183,24 +109,19 @@ const ColumnWrap = styled.div`
 `;
 
 const Label = styled.div`
-  background-color: #eaedef;
-  cursor: pointer;
-  height: 60vh;
+  /* height: 60vh; */
+  height: 600px;
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s linear;
-  color: #bcbcbc;
-  :hover {
-    background-color: #bcbcbc;
-    color: white;
-  }
 `;
 
-const FileInput = styled.input`
-  cursor: pointer;
-  width: 150px;
+const ImageTag = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const ColumnRight = styled.div`

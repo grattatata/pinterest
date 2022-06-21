@@ -5,10 +5,9 @@ import { TextareaAutosize, useSelect } from "@mui/base";
 import { Avatar, TextField } from "@mui/material";
 import { Input } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getList } from "../store/postReducer";
+import { addList, getList } from "../store/postReducer";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../shared/firebase";
-import axios from "axios";
 
 const Upload = () => {
   const [uploadInfo, setUploadInfo] = useState({
@@ -20,17 +19,11 @@ const Upload = () => {
 
   const dispatch = useDispatch();
 
-  axios.get("http://dlckdals04.shop");
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(uploadInfo);
-    // axios
-    //   .post("http://dlckdals04.shop/api/post/upload", uploadInfo)
-    //   .then((response) => console.log(response))
-    //   .catch((error) => console.log(error));
+    dispatch(addList(uploadInfo));
   };
-
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
@@ -61,12 +54,7 @@ const Upload = () => {
     setUploadInfo({ ...uploadInfo, [name]: value });
   };
 
-  const postList = useSelector((state) => state.postReducer);
-  console.log(postList);
-
-  useEffect(() => {
-    dispatch(getList());
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <UploadStyle>
