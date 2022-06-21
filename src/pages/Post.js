@@ -19,14 +19,10 @@ const Post = () => {
 
   return (
     <div>
-      {postList.map((a) => (
-        <>
-          <div>{a.title}</div>
-          <div>{a.content}</div>
-          <div>{a.imageUrl}</div>
-        </>
-      ))}
-      <button onClick={toUpload}>업로드 이동</button>
+      {postList.map((post) => {
+        console.log(post.title, post.content);
+      })}
+      <button onClick={toUpload}>업로드 버튼</button>
     </div>
   );
 };

@@ -7,9 +7,10 @@ export const getList = createAsyncThunk("LOAD_POST", async () => {
   // access token 이름 받아오기
   const response = await axios.get("http://dlckdals04.shop/api/post", {
     headers: {
-      Authorization: `Bearer ${getCookie("jwt-token")}`,
+      Authorization: `Bearer ${getCookie("myToken")}`,
     },
   });
+  console.log(response);
   return response.data;
 });
 

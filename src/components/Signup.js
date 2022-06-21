@@ -28,7 +28,7 @@ const Login = ({ closeModal, setIsLoginModalOpen, setIsSignupModalOpen }) => {
     e.preventDefault();
 
     axios
-      .post("http://dlckdals04.shop/user/signup", signupValue)
+      .post("/user/signup", signupValue)
       .then((response) => {
         alert(response.data.message);
         setIsSignupModalOpen(false);

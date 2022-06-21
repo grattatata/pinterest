@@ -26,63 +26,65 @@ const Header = ({ isLogin, setIsLogin }) => {
   };
 
   return (
-    <HeaderStyle>
-      <HeaderWrap>
-        <HeaderLeft>
-          <FontAwesomeIcon
-            style={{
-              marginRight: "8px",
-              color: "#E60B23",
-            }}
-            icon={faPinterest}
-          />
-          <span
-            style={{
-              color: "#E60B23",
-            }}
-          >
-            <b
+    <>
+      <HeaderStyle>
+        <HeaderWrap>
+          <HeaderLeft>
+            <FontAwesomeIcon
               style={{
-                fontWeight: 700,
+                marginRight: "8px",
+                color: "#E60B23",
+              }}
+              icon={faPinterest}
+            />
+            <span
+              style={{
+                color: "#E60B23",
               }}
             >
-              Hang
-            </b>
-            terest
-          </span>
-        </HeaderLeft>
+              <b
+                style={{
+                  fontWeight: 700,
+                }}
+              >
+                Hang
+              </b>
+              terest
+            </span>
+          </HeaderLeft>
 
-        {isLogin ? (
-          <>
-            <HeaderCenter>
-              <SearchInput type="text" placeholder="검색" />
-            </HeaderCenter>
+          {isLogin ? (
+            <>
+              <HeaderCenter>
+                <SearchInput type="text" placeholder="검색" />
+              </HeaderCenter>
+              <HeaderRight>
+                <ButtonEle
+                  marginRight="8px"
+                  backgroundColor="#E60B23"
+                  text="채팅"
+                />
+                <UserImage size="small" />
+              </HeaderRight>
+            </>
+          ) : (
             <HeaderRight>
               <ButtonEle
                 marginRight="8px"
                 backgroundColor="#E60B23"
-                text="채팅"
+                text="로그인"
+                handleClick={handleLogin}
               />
-              <UserImage size="small" />
+              <ButtonEle
+                backgroundColor="#efefef"
+                color="black"
+                text="가입하기"
+                handleClick={handleSignUp}
+              />
             </HeaderRight>
-          </>
-        ) : (
-          <HeaderRight>
-            <ButtonEle
-              marginRight="8px"
-              backgroundColor="#E60B23"
-              text="로그인"
-              handleClick={handleLogin}
-            />
-            <ButtonEle
-              backgroundColor="#efefef"
-              color="black"
-              text="가입하기"
-              handleClick={handleSignUp}
-            />
-          </HeaderRight>
-        )}
-      </HeaderWrap>
+          )}
+        </HeaderWrap>
+      </HeaderStyle>
       <Outlet />
       {isLoginModalOpen ? (
         <Modal
@@ -101,7 +103,7 @@ const Header = ({ isLogin, setIsLogin }) => {
           setIsSignupModalOpen={setIsSignupModalOpen}
         />
       ) : null}
-    </HeaderStyle>
+    </>
   );
 };
 
@@ -109,6 +111,10 @@ const HeaderStyle = styled.div`
   height: 80px;
   width: 100%;
   z-index: 9999;
+  background-color: white;
+  /* position: fixed;
+  top: 0;
+  left: 0; */
 `;
 
 const HeaderWrap = styled.div`
@@ -137,11 +143,6 @@ const HeaderRight = styled.div`
   justify-content: right;
   align-items: center;
 `;
-
-// const HeaderRightWrap = styled.div`
-//   display: Flex;
-//   width: 100%;
-// `;
 
 const SearchInput = styled.input`
   all: unset;
