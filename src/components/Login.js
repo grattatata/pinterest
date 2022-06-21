@@ -8,7 +8,7 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 import "../styles/LoginNSignup.css";
 import axios from "axios";
-import { setCookie } from "../shared/cookie";
+import { getCookie, setCookie } from "../shared/cookie";
 import { useNavigate } from "react-router-dom";
 
 const Login = ({
@@ -33,20 +33,6 @@ const Login = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("서버로 회원가입 데이터를 보냅니다.");
-    // axios
-    //   .post("http://dlckdals04.shop/user/login", loginValue)
-    //   .then((response) => {
-    //     setCookie("myToken", response.data.token, { path: "/" });
-    //     localStorage.setItem("myToken", JSON.stringify(response.data.token));
-    //     // sessionStorage.setItem("loginId", response.data.token);
-
-    //     alert("로그인이 완료되었습니다!");
-    //     navigate("/post");
-    //     setIsLogin(true);
-    //     setIsLoginModalOpen(false);
-    //   })
-    //   .catch((error) => console.log(error));
-
     axios({
       method: "post",
       // headers: {
@@ -59,8 +45,8 @@ const Login = ({
       },
     })
       .then((response) => {
-        console.log(response.headers);
-        // localStorage.setItem("jwt-token", response.data.token);
+        const accesssTk = response.data.accessToken;
+        setCookie("jwt-token", accesssTk, { path: "/" });
 
         navigate("/post");
         alert("로그인에 성공하였습니다!");

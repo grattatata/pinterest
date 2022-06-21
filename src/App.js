@@ -18,7 +18,7 @@ function App() {
     <div className="App">
       <GlobalStyle />
       <Routes>
-        {/* {isLogin ? (
+        {isLogin ? (
           <Route
             path="/"
             element={<Header isLogin={isLogin} setIsLogin={setIsLogin} />}
@@ -32,8 +32,7 @@ function App() {
             path="/main"
             element={<Header isLogin={isLogin} setIsLogin={setIsLogin} />}
           ></Route>
-        )} */}
-        <Route path="/post" element={<Post />} />
+        )}
       </Routes>
     </div>
   );
