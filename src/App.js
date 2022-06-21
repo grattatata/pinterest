@@ -33,7 +33,7 @@ function App() {
             element={<Header isLogin={isLogin} setIsLogin={setIsLogin} />}
           >
             <Route path="post" element={<Post />} />
-            <Route path="post/postdetail" element={<PostDetail />} />
+            <Route path="post/postdetail/:postId" element={<PostDetail />} />
             <Route path="upload" element={<Upload />} />
           </Route>
         ) : (

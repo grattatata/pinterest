@@ -10,17 +10,37 @@ export const getList = createAsyncThunk("LOAD_POST", async () => {
       Authorization: `Bearer ${getCookie("myToken")}`,
     },
   });
-  console.log(response);
   return response.data;
 });
 
 export const addList = createAsyncThunk("ADD_POST", async (new_list) => {
   const response = await axios.post(
-    "http://dlckdals04.shop/api/post",
-    new_list
+    "http://dlckdals04.shop/api/post/upload",
+    new_list,
+    {
+      headers: {
+        Authorization: `Bearer ${getCookie("myToken")}`,
+      },
+    }
   );
   return response.data;
 });
+
+export const getPostDetail = createAsyncThunk(
+  "LOAD_POSTDETAIL",
+  async (postId) => {
+    const response = await axios
+      .get(`http://dlckdals04.shop/api/post/postdetail/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${getCookie("myToken")}`,
+        },
+      })
+      .catch((error) => console.log(error));
+
+    console.log(response.data);
+    return response.data;
+  }
+);
 
 export const postReducer = createSlice({
   name: "postList",
@@ -29,5 +49,6 @@ export const postReducer = createSlice({
   extraReducers: {
     [getList.fulfilled]: (state, { payload }) => [...payload],
     [addList.fulfilled]: (state, { payload }) => [...state, payload],
+    [getPostDetail.fulfilled]: (state, { payload }) => [payload],
   },
 });
