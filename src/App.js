@@ -8,8 +8,6 @@ import { useEffect, useState } from "react";
 import Post from "./pages/Post";
 import ButtonEle from "./elements/ButtonEle";
 import { useSelector, useDispatch } from "react-redux";
-import { increase, addItem } from "./store/cartSlice";
-import { addList, getList } from "./store/todoReducer";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -29,7 +27,7 @@ function App() {
           </Route>
         ) : (
           <Route
-            path="/main"
+            path="/"
             element={<Header isLogin={isLogin} setIsLogin={setIsLogin} />}
           ></Route>
         )}

@@ -5,7 +5,9 @@ const Pin = (props) => {
 
   return (
     <Wrapper>
-      <Container>{/* <img src={urls?.regular} alt="pin" /> */}</Container>
+      <Container>
+        <img src={urls?.regular} alt="pin" />
+      </Container>
     </Wrapper>
   );
 };
