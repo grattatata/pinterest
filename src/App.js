@@ -6,8 +6,7 @@ import Header from "./components/Header";
 import GlobalStyle from "./styles/GlobalStyle";
 import { useEffect, useState } from "react";
 import Post from "./pages/Post";
-import ButtonEle from "./elements/ButtonEle";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getCookie, setCookie } from "./shared/cookie";
 
 function App() {
