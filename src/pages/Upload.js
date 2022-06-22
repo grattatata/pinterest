@@ -5,7 +5,7 @@ import { TextareaAutosize, useSelect } from "@mui/base";
 import { Avatar, TextField } from "@mui/material";
 import { Input } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { addList, getList } from "../store/postReducer";
+import { uploadList, getList } from "../store/postReducer";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../shared/firebase";
 
@@ -22,7 +22,7 @@ const Upload = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(uploadInfo);
-    dispatch(addList(uploadInfo));
+    dispatch(uploadList(uploadInfo));
   };
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();

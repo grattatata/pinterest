@@ -14,7 +14,7 @@ export const getList = createAsyncThunk("LOAD_POST", async () => {
   return response.data;
 });
 
-export const addList = createAsyncThunk("ADD_POST", async (new_list) => {
+export const uploadList = createAsyncThunk("UPLOAD_POST", async (new_list) => {
   const response = await axios.post(`${serverUrl}/api/post/upload`, new_list, {
     headers: {
       Authorization: `Bearer ${getCookie("myToken")}`,
@@ -57,7 +57,7 @@ export const postReducer = createSlice({
   reducers: {},
   extraReducers: {
     [getList.fulfilled]: (state, { payload }) => [...payload],
-    [addList.fulfilled]: (state, { payload }) => [...state, payload],
+    [uploadList.fulfilled]: (state, { payload }) => [...state, payload],
     [getPostDetail.fulfilled]: (state, { payload }) => [payload],
     [deletePost.fulfilled]: (state, { payload }) => [payload],
   },

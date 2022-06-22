@@ -7,6 +7,8 @@ import Input from "../elements/Input";
 import UserImage from "../elements/UserImage";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost, getPostDetail } from "../store/postReducer";
+import { getComments } from "../store/commentReducer";
+
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
@@ -68,7 +70,14 @@ const PostDetail = () => {
                     <CommentCount>
                       댓글<span>0개</span>
                     </CommentCount>
-                    <CommentsLists></CommentsLists>
+                    <CommentsLists>
+                      {/* map */}
+                      <UserProfileWrap>
+                        <UserImage size="small" />
+                        <span>{post[0].postDetail.nickname}</span>
+                        <p>{comment}</p>
+                      </UserProfileWrap>
+                    </CommentsLists>
                   </CommentsContents>
 
                   <CommentFill>
