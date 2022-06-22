@@ -21,10 +21,6 @@ const PostDetail = () => {
   const post = useSelector((state) => state.postReducer);
   console.log(post);
 
-  useEffect(() => {
-    dispatch(getPostDetail(postId));
-  }, []);
-
   const handleDelete = async () => {
     if (
       window.confirm(
@@ -43,6 +39,10 @@ const PostDetail = () => {
   const handleEdit = () => {
     navigate(`/update/${postId}`, { state: post });
   };
+
+  useEffect(() => {
+    dispatch(getPostDetail(postId));
+  }, []);
 
   return (
     <PostDetailStyle>

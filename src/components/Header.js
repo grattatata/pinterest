@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPinterest } from "@fortawesome/free-brands-svg-icons";
@@ -7,11 +7,19 @@ import UserImage from "../elements/UserImage";
 import Login from "./Login";
 import Modal from "../elements/Modal";
 import { Button } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import searchReducer, { searchPost } from "../store/searchReducer";
+import { useSelector } from "react-redux";
 
 const Header = ({ isLogin, setIsLogin }) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+  const [word, setWord] = useState("");
+  const dispatch = useDispatch();
+  const searchedPosts = useSelector((state) => state.searchReducer);
+  const navigate = useNavigate();
+
   const handleLogin = () => {
     setIsLoginModalOpen(!isLoginModalOpen);
   };
@@ -25,6 +33,20 @@ const Header = ({ isLogin, setIsLogin }) => {
     setIsSignupModalOpen(false);
   };
 
+  const onCheckEnter = (e) => {
+    if (e.key === "Enter") {
+      onSignup(e);
+    }
+  };
+
+  const onSignup = (e) => {
+    dispatch(searchPost(e.target.value));
+  };
+
+  const toMyPage = () => {
+    console.log("to my page");
+    navigate("/mypage");
+  };
   return (
     <>
       <HeaderStyle>
@@ -56,7 +78,11 @@ const Header = ({ isLogin, setIsLogin }) => {
           {isLogin ? (
             <>
               <HeaderCenter>
-                <SearchInput type="text" placeholder="검색" />
+                <SearchInput
+                  type="text"
+                  placeholder="검색"
+                  onKeyPress={onCheckEnter}
+                />
               </HeaderCenter>
               <HeaderRight>
                 <ButtonEle
@@ -64,7 +90,7 @@ const Header = ({ isLogin, setIsLogin }) => {
                   backgroundColor="#E60B23"
                   text="채팅"
                 />
-                <UserImage size="small" />
+                <UserImage size="small" toMyPage={toMyPage} />
               </HeaderRight>
             </>
           ) : (

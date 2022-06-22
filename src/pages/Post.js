@@ -11,18 +11,26 @@ import styled from "styled-components";
 import "../styles/Post.css";
 
 const Post = () => {
+  const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.postReducer);
-
-  useEffect(() => {
-    dispatch(getList());
-  }, []);
 
   const ClickToDetail = (postId) => {
     console.log(postId);
     navigate(`/post/postdetail/${postId}`);
   };
+
+  useEffect(() => {
+    const fetchList = () => {
+      dispatch(getList());
+    };
+    fetchList();
+  }, []);
+
+  useEffect(() => {
+    setPosts(postList);
+  }, [postList]);
 
   return (
     <Wrapper>

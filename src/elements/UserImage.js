@@ -1,7 +1,9 @@
 import React from "react";
 import { Avatar } from "@mui/material";
 
-const UserImage = ({ size }) => {
+const UserImage = (props) => {
+  const { size, width } = props;
+  const { toMyPage } = props;
   return (
     <div>
       {size === "small" ? (
@@ -10,6 +12,10 @@ const UserImage = ({ size }) => {
             alt="Vemy Sharp"
             src="/static/images/avatar/1.jpg"
             sx={{ width: 32, height: 32 }}
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={toMyPage}
           />
         </>
       ) : (
