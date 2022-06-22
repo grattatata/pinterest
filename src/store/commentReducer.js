@@ -5,7 +5,7 @@ import axios from "axios";
 const serverUrl = "http://dlckdals04.shop";
 
 // get comments list
-export const getComments = createAsyncThunk("LOAD_COMMENTS", async () => {
+export const getComments = createAsyncThunk("LOAD_COMMENTS", async (postId) => {
   const response = await axios
     .get(`${serverUrl}/api/post/postdetail/${postId}/comment`, {
       headers: {
