@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 // import { loadPosts } from "../redux/modules/posts";
 import { useNavigate } from "react-router-dom";
 import { getList } from "../store/postReducer";
@@ -22,8 +23,16 @@ const Post = () => {
   return (
     <Wrapper>
       <Container className="main__container">
-        {postList.map((pin, index) => {
-          return <Pin key={index} imageUrl={postList[index].imageUrl} />;
+        {postList.map((pin, i) => {
+          return (
+            <Pin
+              key={i}
+              imageUrl={postList[i].imageUrl}
+              onClick={() => {
+                navigate(`/post/postdetail/${postId}`);
+              }}
+            />
+          );
         })}
       </Container>
       <AddCircleIcon
