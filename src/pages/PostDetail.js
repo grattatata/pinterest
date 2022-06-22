@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../styles/postDetail.css";
 
 import Input from "../elements/Input";
@@ -14,6 +14,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const PostDetail = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const postId = Number(params.postId);
   const dispatch = useDispatch();
@@ -26,8 +27,23 @@ const PostDetail = () => {
     dispatch(getPostDetail(postId));
   }, []);
 
-  const handleDelete = () => {
-    dispatch(deletePost(postId));
+  const handleDelete = async () => {
+    if (
+      window.confirm(
+        "해당 게시물을 삭제하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다."
+      )
+    ) {
+      dispatch(deletePost(postId));
+      navigate("/post");
+      alert("게시물이 삭제되었습니다");
+    }
+    // if(a.payload.success){
+    //   alert("게시물이 삭제되었습니다");
+    // }
+  };
+
+  const handleEdit = () => {
+    navigate(`/update/${postId}`, { state: post });
   };
 
   return (
@@ -48,12 +64,12 @@ const PostDetail = () => {
                   <LeftBtns>
                     <ContentCopyIcon className="button" />
                     <PrivateBtn>
-                      <EditIcon className="button" />
+                      <EditIcon onClick={handleEdit} className="button" />
                       <DeleteIcon onClick={handleDelete} className="button" />
                     </PrivateBtn>
                   </LeftBtns>
 
-                  <SubmitInput type="submit" value="저장" />
+                  <SubmitInput type="submit" value="수정" />
                 </ButtonContainer>
 
                 <div>

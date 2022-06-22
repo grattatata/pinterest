@@ -33,11 +33,24 @@ export const getPostDetail = createAsyncThunk(
         },
       })
       .catch((error) => console.log(error));
-
-    console.log(response.data);
     return response.data;
   }
 );
+
+export const updatePost = createAsyncThunk("UPDATE_POST", async (param) => {
+  console.log(param.postId, param.uploadInfo);
+  const response = await axios.put(
+    `http://dlckdals04.shop/api/post/postdetail/edit/${param.postId}`,
+    param.uploadInfo,
+    {
+      headers: {
+        Authorization: `Bearer ${getCookie("myToken")}`,
+      },
+    }
+  );
+  console.log(response);
+  return response;
+});
 
 export const deletePost = createAsyncThunk("DELETE_POST", async (postId) => {
   const response = await axios
@@ -47,8 +60,8 @@ export const deletePost = createAsyncThunk("DELETE_POST", async (postId) => {
       },
     })
     .catch((error) => console.log(error));
-  console.log(response);
-  return;
+  console.log(response.data);
+  return response.data;
 });
 
 export const postReducer = createSlice({
@@ -59,7 +72,10 @@ export const postReducer = createSlice({
     [getList.fulfilled]: (state, { payload }) => [...payload],
     [uploadList.fulfilled]: (state, { payload }) => [...state, payload],
     [getPostDetail.fulfilled]: (state, { payload }) => [payload],
-    [deletePost.fulfilled]: (state, { payload }) => [payload],
+    [deletePost.fulfilled]: (state, { payload }) => [state],
+    [updatePost.fulfilled]: (state, { payload }) => {
+      return [payload];
+    },
   },
 });
 

@@ -1,38 +1,42 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useNavigate, useParams } from "react-router-dom";
+import { useLocation } from "react-router";
 
 import { TextareaAutosize, useSelect } from "@mui/base";
 import { Avatar, TextField } from "@mui/material";
 import { Input } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { uploadList, getList, updatePost } from "../store/postReducer";
-
+import { updatePost } from "../store/postReducer";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../shared/firebase";
-import { useNavigate, useParams } from "react-router-dom";
 
-const Upload = () => {
+const Update = (navigation) => {
+  const { state } = useLocation();
+  console.log(state);
   const [uploadInfo, setUploadInfo] = useState({
     title: "",
     content: "",
     imageUrl: "",
   });
-  const [previewImg, setPreviewImg] = useState("");
-  const params = useParams();
-  const postId = Number(params.postId);
+  const [previewImg, setPreviewImg] = useState(
+    `${state[0].postDetail.imageUrl}`
+  );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const params = useParams();
+  const postId = Number(params.postId);
 
+  console.log(uploadInfo);
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(uploadList(uploadInfo));
     if (uploadInfo.title !== "") {
       if (uploadInfo.content !== "") {
         if (uploadInfo.imageUrl !== "") {
-          dispatch(updatePost(postId, uploadInfo));
+          dispatch(updatePost({ postId: postId, uploadInfo: uploadInfo }));
           navigate("/post");
-          return alert("게시물 등록이 완료되었습니다");
+          return alert("게시물 수정이 완료되었습니다");
         }
         return alert("이미지를 등록해주세요");
       }
@@ -41,6 +45,7 @@ const Upload = () => {
     return alert("제목을 입력해주세요");
   };
 
+  // 이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
@@ -51,7 +56,7 @@ const Upload = () => {
     });
   };
 
-  // 파이어베이스 storage에 이미지 저장 후 url 추출
+  // 파이어베이스로부터 url 추출
   const uploadFB = async (e) => {
     const selectedFile = e.target.files;
     const uploaded_file = await uploadBytes(
@@ -102,6 +107,7 @@ const Upload = () => {
               <TextField
                 placeholder="제목"
                 name="title"
+                defaultValue={state[0].postDetail.title}
                 onChange={handleChange}
               />
 
@@ -124,6 +130,7 @@ const Upload = () => {
                   border: "#fff",
                 }}
                 onChange={handleChange}
+                defaultValue={state[0].postDetail.content}
               />
             </ColumnRight>
           </ColumnWrap>
@@ -251,4 +258,4 @@ const SubmitInput = styled.input`
     background-color: silver;
   }
 `;
-export default Upload;
+export default Update;

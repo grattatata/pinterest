@@ -9,6 +9,7 @@ import Post from "./pages/Post";
 import ButtonEle from "./elements/ButtonEle";
 import { useSelector, useDispatch } from "react-redux";
 import { getCookie } from "./shared/cookie";
+import Update from "./pages/Update";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -32,7 +33,8 @@ function App() {
           >
             <Route path="post" element={<Post />} />
             <Route path="post/postdetail/:postId" element={<PostDetail />} />
-            <Route path="upload" element={<Upload />} />
+            <Route path="update/:postId" element={<Update />} />
+            <Route path="upload/" element={<Upload />} />
           </Route>
         ) : (
           <Route
