@@ -7,6 +7,8 @@ import Input from "../elements/Input";
 import UserImage from "../elements/UserImage";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost, getPostDetail } from "../store/postReducer";
+import { getComments } from "../store/commentReducer";
+
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
@@ -14,12 +16,15 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 const PostDetail = () => {
   const navigate = useNavigate();
   const params = useParams();
-  const boardId = Number(params.postId);
+  const postId = Number(params.postId);
   const dispatch = useDispatch();
   const post = useSelector((state) => state.postReducer);
+  const comment = useSelector((state) => state.commentReducer);
+  console.log(post);
+  console.log(comment);
 
   useEffect(() => {
-    dispatch(getPostDetail(boardId));
+    dispatch(getPostDetail(postId));
   }, []);
 
   const handleDelete = async () => {
@@ -28,7 +33,7 @@ const PostDetail = () => {
         "해당 게시물을 삭제하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다."
       )
     ) {
-      dispatch(deletePost(boardId));
+      dispatch(deletePost(postId));
       navigate("/post");
       alert("게시물이 삭제되었습니다");
     }
@@ -38,7 +43,7 @@ const PostDetail = () => {
   };
 
   const handleEdit = () => {
-    navigate(`/update/${boardId}`, { state: post });
+    navigate(`/update/${postId}`, { state: post });
   };
 
   return (
@@ -84,7 +89,14 @@ const PostDetail = () => {
                     <CommentCount>
                       댓글<span>0개</span>
                     </CommentCount>
-                    <CommentsLists></CommentsLists>
+                    <CommentsLists>
+                      {/* map */}
+                      <UserProfileWrap>
+                        <UserImage size="small" />
+                        <span>{post[0].postDetail.nickname}</span>
+                        <p>{comment}</p>
+                      </UserProfileWrap>
+                    </CommentsLists>
                   </CommentsContents>
 
                   <CommentFill>

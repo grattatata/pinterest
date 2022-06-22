@@ -1,12 +1,12 @@
-import { createAsyncThunk, current } from "@reduxjs/toolkit";
-import axios from "axios";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import { getCookie } from "../shared/cookie";
-import { Action } from "history";
+import axios from "axios";
+
+const serverUrl = "http://dlckdals04.shop";
 
 export const getList = createAsyncThunk("LOAD_POST", async () => {
   // access token 이름 받아오기
-  const response = await axios.get("http://dlckdals04.shop/api/post", {
+  const response = await axios.get(`${serverUrl}/api/post`, {
     headers: {
       Authorization: `Bearer ${getCookie("myToken")}`,
     },
@@ -14,16 +14,12 @@ export const getList = createAsyncThunk("LOAD_POST", async () => {
   return response.data;
 });
 
-export const uploadList = createAsyncThunk("ADD_POST", async (new_list) => {
-  const response = await axios.post(
-    "http://dlckdals04.shop/api/post/upload",
-    new_list,
-    {
-      headers: {
-        Authorization: `Bearer ${getCookie("myToken")}`,
-      },
-    }
-  );
+export const uploadList = createAsyncThunk("UPLOAD_POST", async (new_list) => {
+  const response = await axios.post(`${serverUrl}/api/post/upload`, new_list, {
+    headers: {
+      Authorization: `Bearer ${getCookie("myToken")}`,
+    },
+  });
   return response.data;
 });
 
@@ -31,7 +27,7 @@ export const getPostDetail = createAsyncThunk(
   "LOAD_POSTDETAIL",
   async (postId) => {
     const response = await axios
-      .get(`http://dlckdals04.shop/api/post/postdetail/${postId}`, {
+      .get(`${serverUrl}/api/post/postdetail/${postId}`, {
         headers: {
           Authorization: `Bearer ${getCookie("myToken")}`,
         },
@@ -58,7 +54,7 @@ export const updatePost = createAsyncThunk("UPDATE_POST", async (param) => {
 
 export const deletePost = createAsyncThunk("DELETE_POST", async (postId) => {
   const response = await axios
-    .delete(`http://dlckdals04.shop/api/post/postdetail/remove/${postId}`, {
+    .delete(`${serverUrl}/api/post/postdetail/remove/${postId}`, {
       headers: {
         Authorization: `Bearer ${getCookie("myToken")}`,
       },
@@ -78,8 +74,9 @@ export const postReducer = createSlice({
     [getPostDetail.fulfilled]: (state, { payload }) => [payload],
     [deletePost.fulfilled]: (state, { payload }) => [state],
     [updatePost.fulfilled]: (state, { payload }) => {
-      // console.log(state, payload);
       return [payload];
     },
   },
 });
+
+export default postReducer.reducer;

@@ -6,6 +6,7 @@ import { Avatar, TextField } from "@mui/material";
 import { Input } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadList, getList, updatePost } from "../store/postReducer";
+
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../shared/firebase";
 import { useNavigate, useParams } from "react-router-dom";
@@ -18,7 +19,7 @@ const Upload = () => {
   });
   const [previewImg, setPreviewImg] = useState("");
   const params = useParams();
-  const boardId = Number(params.postId);
+  const postId = Number(params.postId);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const Upload = () => {
     if (uploadInfo.title !== "") {
       if (uploadInfo.content !== "") {
         if (uploadInfo.imageUrl !== "") {
-          dispatch(updatePost(boardId, uploadInfo));
+          dispatch(updatePost(postId, uploadInfo));
           navigate("/post");
           return alert("게시물 등록이 완료되었습니다");
         }
