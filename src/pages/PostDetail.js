@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import "../styles/postDetail.css";
 
 import Input from "../elements/Input";
 import UserImage from "../elements/UserImage";
 import { useDispatch, useSelector } from "react-redux";
-import { getPostDetail } from "../store/postReducer";
+import { deletePost, getPostDetail } from "../store/postReducer";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const PostDetail = () => {
   const params = useParams();
@@ -16,6 +20,10 @@ const PostDetail = () => {
   useEffect(() => {
     dispatch(getPostDetail(boardId));
   }, []);
+
+  const handleDelete = () => {
+    dispatch(deletePost(boardId));
+  };
 
   return (
     <PostDetailStyle>
@@ -31,9 +39,18 @@ const PostDetail = () => {
 
               <ColumnRight>
                 {/* SubmitButtonWrap */}
-                <SubmitInput type="submit" value="저장" />
+                <ButtonContainer>
+                  <LeftBtns>
+                    <ContentCopyIcon className="button" />
+                    <PrivateBtn>
+                      <EditIcon className="button" />
+                      <DeleteIcon onClick={handleDelete} className="button" />
+                    </PrivateBtn>
+                  </LeftBtns>
 
-                {/* MetaInfoWrap */}
+                  <SubmitInput type="submit" value="저장" />
+                </ButtonContainer>
+
                 <div>
                   <ContentsInfo>
                     <MetaInfo>
@@ -108,6 +125,14 @@ const ColumnWrap = styled.div`
   justify-content: space-between;
 `;
 
+const ColumnLeft = styled.div`
+  height: 100%;
+  width: 45%;
+  display: Flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
 const Label = styled.div`
   /* height: 60vh; */
   height: 600px;
@@ -134,13 +159,17 @@ const ColumnRight = styled.div`
   align-content: right;
 `;
 
-const ColumnLeft = styled.div`
-  height: 100%;
-  width: 45%;
+const ButtonContainer = styled.div`
   display: Flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
 `;
+
+const LeftBtns = styled.div`
+  display: Flex;
+`;
+
+const PrivateBtn = styled.div``;
 
 const SubmitInput = styled.input`
   display: inline-block;
@@ -157,9 +186,7 @@ const SubmitInput = styled.input`
   font-size: 15px;
   text-align: center;
   padding-left: 12px;
-  margin-bottom: 20px;
-  /* position: relative;
-  left: 290px; */
+  position: relative;
   align-self: end;
   :hover {
     background-color: silver;

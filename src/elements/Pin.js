@@ -3,11 +3,12 @@ import styled from "styled-components";
 import ButtonEle from "./ButtonEle";
 
 const Pin = (props) => {
-  let { imageUrl } = props;
+  const { imageUrl } = props;
+  const { clickEvent } = props;
 
   return (
     <Wrapper>
-      <Container>
+      <Container onClick={clickEvent}>
         <img src={imageUrl} alt="pin" />
         <Content>
           <ButtonEle

@@ -42,6 +42,18 @@ export const getPostDetail = createAsyncThunk(
   }
 );
 
+export const deletePost = createAsyncThunk("DELETE_POST", async (postId) => {
+  const response = await axios
+    .delete(`http://dlckdals04.shop/api/post/postdetail/remove/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${getCookie("myToken")}`,
+      },
+    })
+    .catch((error) => console.log(error));
+  console.log(response);
+  return;
+});
+
 export const postReducer = createSlice({
   name: "postList",
   initialState: [],
@@ -50,5 +62,6 @@ export const postReducer = createSlice({
     [getList.fulfilled]: (state, { payload }) => [...payload],
     [addList.fulfilled]: (state, { payload }) => [...state, payload],
     [getPostDetail.fulfilled]: (state, { payload }) => [payload],
+    [deletePost.fulfilled]: (state, { payload }) => [payload],
   },
 });

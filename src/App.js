@@ -6,8 +6,9 @@ import Header from "./components/Header";
 import GlobalStyle from "./styles/GlobalStyle";
 import { useEffect, useState } from "react";
 import Post from "./pages/Post";
-import { useDispatch } from "react-redux";
-import { getCookie, setCookie } from "./shared/cookie";
+import ButtonEle from "./elements/ButtonEle";
+import { useSelector, useDispatch } from "react-redux";
+import { getCookie } from "./shared/cookie";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);

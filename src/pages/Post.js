@@ -14,11 +14,15 @@ const Post = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.postReducer);
-  console.log(postList);
 
   useEffect(() => {
     dispatch(getList());
   }, []);
+
+  const ClickToDetail = (postId) => {
+    console.log(postId);
+    navigate(`/post/postdetail/${postId}`);
+  };
 
   return (
     <Wrapper>
@@ -28,8 +32,8 @@ const Post = () => {
             <Pin
               key={i}
               imageUrl={postList[i].imageUrl}
-              onClick={() => {
-                navigate(`/post/postdetail/${postId}`);
+              clickEvent={() => {
+                ClickToDetail(pin.postId);
               }}
             />
           );
