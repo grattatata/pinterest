@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../styles/postDetail.css";
 
 import Input from "../elements/Input";
@@ -12,6 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const PostDetail = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const boardId = Number(params.postId);
   const dispatch = useDispatch();
@@ -23,6 +24,8 @@ const PostDetail = () => {
 
   const handleDelete = () => {
     dispatch(deletePost(boardId));
+    alert("게시물이 삭제되었습니다");
+    navigate("/post");
   };
 
   return (

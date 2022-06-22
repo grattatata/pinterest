@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addList, getList } from "../store/postReducer";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../shared/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Upload = () => {
   const [uploadInfo, setUploadInfo] = useState({
@@ -17,12 +18,24 @@ const Upload = () => {
   });
   const [previewImg, setPreviewImg] = useState("");
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(uploadInfo);
     dispatch(addList(uploadInfo));
+    if (uploadInfo.title !== "") {
+      if (uploadInfo.content !== "") {
+        if (uploadInfo.imageUrl !== "") {
+          navigate("/post");
+          return alert("게시물 등록이 완료되었습니다");
+        }
+        return alert("이미지를 등록해주세요");
+      }
+      return alert("내용을 입력해주세요");
+    }
+    return alert("제목을 입력해주세요");
   };
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();

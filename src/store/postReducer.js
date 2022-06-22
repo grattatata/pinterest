@@ -36,7 +36,6 @@ export const getPostDetail = createAsyncThunk(
         },
       })
       .catch((error) => console.log(error));
-
     console.log(response.data);
     return response.data;
   }
@@ -51,7 +50,7 @@ export const deletePost = createAsyncThunk("DELETE_POST", async (postId) => {
     })
     .catch((error) => console.log(error));
   console.log(response);
-  return;
+  return response;
 });
 
 export const postReducer = createSlice({
