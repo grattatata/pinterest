@@ -1,11 +1,12 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import { getCookie } from "../shared/cookie";
+import axios from "axios";
+
+const serverUrl = "http://dlckdals04.shop";
 
 export const getList = createAsyncThunk("LOAD_POST", async () => {
   // access token 이름 받아오기
-  const response = await axios.get("http://dlckdals04.shop/api/post", {
+  const response = await axios.get(`${serverUrl}/api/post`, {
     headers: {
       Authorization: `Bearer ${getCookie("myToken")}`,
     },
@@ -14,15 +15,11 @@ export const getList = createAsyncThunk("LOAD_POST", async () => {
 });
 
 export const addList = createAsyncThunk("ADD_POST", async (new_list) => {
-  const response = await axios.post(
-    "http://dlckdals04.shop/api/post/upload",
-    new_list,
-    {
-      headers: {
-        Authorization: `Bearer ${getCookie("myToken")}`,
-      },
-    }
-  );
+  const response = await axios.post(`${serverUrl}/api/post/upload`, new_list, {
+    headers: {
+      Authorization: `Bearer ${getCookie("myToken")}`,
+    },
+  });
   return response.data;
 });
 
@@ -30,7 +27,7 @@ export const getPostDetail = createAsyncThunk(
   "LOAD_POSTDETAIL",
   async (postId) => {
     const response = await axios
-      .get(`http://dlckdals04.shop/api/post/postdetail/${postId}`, {
+      .get(`${serverUrl}/api/post/postdetail/${postId}`, {
         headers: {
           Authorization: `Bearer ${getCookie("myToken")}`,
         },
@@ -44,7 +41,7 @@ export const getPostDetail = createAsyncThunk(
 
 export const deletePost = createAsyncThunk("DELETE_POST", async (postId) => {
   const response = await axios
-    .delete(`http://dlckdals04.shop/api/post/postdetail/remove/${postId}`, {
+    .delete(`${serverUrl}/api/post/postdetail/remove/${postId}`, {
       headers: {
         Authorization: `Bearer ${getCookie("myToken")}`,
       },
@@ -65,3 +62,5 @@ export const postReducer = createSlice({
     [deletePost.fulfilled]: (state, { payload }) => [payload],
   },
 });
+
+export default postReducer.reducer;
