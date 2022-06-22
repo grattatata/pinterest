@@ -19,9 +19,7 @@ const PostDetail = () => {
   const postId = Number(params.postId);
   const dispatch = useDispatch();
   const post = useSelector((state) => state.postReducer);
-  const comment = useSelector((state) => state.commentReducer);
   console.log(post);
-  console.log(comment);
 
   useEffect(() => {
     dispatch(getPostDetail(postId));
@@ -94,7 +92,6 @@ const PostDetail = () => {
                       <UserProfileWrap>
                         <UserImage size="small" />
                         <span>{post[0].postDetail.nickname}</span>
-                        <p>{comment}</p>
                       </UserProfileWrap>
                     </CommentsLists>
                   </CommentsContents>
