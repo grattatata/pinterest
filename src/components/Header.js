@@ -4,75 +4,106 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPinterest } from "@fortawesome/free-brands-svg-icons";
 import ButtonEle from "../elements/ButtonEle";
 import UserImage from "../elements/UserImage";
-import LoginModal from "./Login";
+import Login from "./Login";
+import Modal from "../elements/Modal";
+import { Button } from "@mui/material";
+import { Outlet } from "react-router-dom";
 
-const Header = () => {
-  const [isLogin, setIsLogin] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+const Header = ({ isLogin, setIsLogin }) => {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+  const handleLogin = () => {
+    setIsLoginModalOpen(!isLoginModalOpen);
+  };
+
+  const handleSignUp = () => {
+    setIsSignupModalOpen(!isSignupModalOpen);
+  };
+
+  const closeModal = () => {
+    setIsLoginModalOpen(false);
+    setIsSignupModalOpen(false);
+  };
 
   return (
-    <HeaderStyle>
-      <HeaderWrap>
-        <HeaderLeft>
-          <FontAwesomeIcon
-            style={{
-              marginRight: "8px",
-              color: "#E60B23",
-            }}
-            icon={faPinterest}
-          />
-          <span
-            style={{
-              color: "#E60B23",
-            }}
-          >
-            <b
+    <>
+      <HeaderStyle>
+        <HeaderWrap>
+          <HeaderLeft>
+            <FontAwesomeIcon
               style={{
-                fontWeight: 700,
+                marginRight: "8px",
+                color: "#E60B23",
+              }}
+              icon={faPinterest}
+            />
+            <span
+              style={{
+                color: "#E60B23",
               }}
             >
-              Hang
-            </b>
-            terest
-          </span>
-        </HeaderLeft>
+              <b
+                style={{
+                  fontWeight: 700,
+                }}
+              >
+                Hang
+              </b>
+              terest
+            </span>
+          </HeaderLeft>
 
-        {isLogin ? (
-          <>
-            <HeaderCenter>
-              <SearchInput type="text" placeholder="검색" />
-            </HeaderCenter>
+          {isLogin ? (
+            <>
+              <HeaderCenter>
+                <SearchInput type="text" placeholder="검색" />
+              </HeaderCenter>
+              <HeaderRight>
+                <ButtonEle
+                  marginRight="8px"
+                  backgroundColor="#E60B23"
+                  text="채팅"
+                />
+                <UserImage size="small" />
+              </HeaderRight>
+            </>
+          ) : (
             <HeaderRight>
               <ButtonEle
                 marginRight="8px"
                 backgroundColor="#E60B23"
-                text="채팅"
+                text="로그인"
+                handleClick={handleLogin}
               />
-              <UserImage small />
+              <ButtonEle
+                backgroundColor="#efefef"
+                color="black"
+                text="가입하기"
+                handleClick={handleSignUp}
+              />
             </HeaderRight>
-          </>
-        ) : (
-          <HeaderRight>
-            <ButtonEle
-              marginRight="8px"
-              backgroundColor="#E60B23"
-              text="로그인"
-              onClick={setModal}
-            />
-            {modalIsOpen === true ? (
-              <LoginModal closeModal={setModalIsOpen} />
-            ) : null}
-            <ButtonEle
-              backgroundColor="#efefef"
-              color="black"
-              text="가입하기"
-            />
-            {console.log(modalIsOpen)}
-          </HeaderRight>
-        )}
-        {/* <LoginModal open={modalIsOpen} onClose={() => setModalIsOpen(false)} /> */}
-      </HeaderWrap>
-    </HeaderStyle>
+          )}
+        </HeaderWrap>
+      </HeaderStyle>
+      <Outlet />
+      {isLoginModalOpen ? (
+        <Modal
+          text="로그인"
+          closeModal={closeModal}
+          setIsLoginModalOpen={setIsLoginModalOpen}
+          setIsSignupModalOpen={setIsSignupModalOpen}
+          setIsLogin={setIsLogin}
+        />
+      ) : null}
+      {isSignupModalOpen ? (
+        <Modal
+          text="signup"
+          closeModal={closeModal}
+          setIsLoginModalOpen={setIsLoginModalOpen}
+          setIsSignupModalOpen={setIsSignupModalOpen}
+        />
+      ) : null}
+    </>
   );
 };
 
@@ -80,6 +111,10 @@ const HeaderStyle = styled.div`
   height: 80px;
   width: 100%;
   z-index: 9999;
+  background-color: white;
+  /* position: fixed;
+  top: 0;
+  left: 0; */
 `;
 
 const HeaderWrap = styled.div`
@@ -108,11 +143,6 @@ const HeaderRight = styled.div`
   justify-content: right;
   align-items: center;
 `;
-
-// const HeaderRightWrap = styled.div`
-//   display: Flex;
-//   width: 100%;
-// `;
 
 const SearchInput = styled.input`
   all: unset;

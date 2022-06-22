@@ -4,23 +4,44 @@ import Upload from "./pages/Upload";
 import PostDetail from "./pages/PostDetail";
 import Header from "./components/Header";
 import GlobalStyle from "./styles/GlobalStyle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Post from "./pages/Post";
+import ButtonEle from "./elements/ButtonEle";
+import { useSelector, useDispatch } from "react-redux";
+import { getCookie } from "./shared/cookie";
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
+  const dispatch = useDispatch();
+
+  // 쿠키에 토큰있을 시 로그인 변수 상태 true
+  useEffect(() => {
+    if (getCookie("myToken")) {
+      setIsLogin(true);
+    }
+  }, []);
+
   return (
     <div className="App">
-      <Header />
       <GlobalStyle />
       <Routes>
-        {/* Main 페이지 */}
-        <Route path="/main" element={<Main />} />
-        {/* Post 페이지 */}
-        <Route path="/post" element={<Post />} />
-        {/* Postdetail 페이지 */}
-        <Route path="/post/postdetail" element={<PostDetail />} />
-        {/* Upload 페이지 */}
-        <Route path="upload" element={<Upload />} />
+        {isLogin ? (
+          <Route
+            path="/"
+            element={<Header isLogin={isLogin} setIsLogin={setIsLogin} />}
+          >
+            <Route path="post" element={<Post />} />
+            <Route path="post/postdetail/:postId" element={<PostDetail />} />
+            <Route path="upload" element={<Upload />} />
+          </Route>
+        ) : (
+          <Route
+            path="/"
+            element={<Header isLogin={isLogin} setIsLogin={setIsLogin} />}
+          >
+            <Route path="/main" element={<Main />}></Route>
+          </Route>
+        )}
       </Routes>
     </div>
   );

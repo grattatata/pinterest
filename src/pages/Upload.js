@@ -1,35 +1,97 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { TextareaAutosize } from "@mui/base";
+import { TextareaAutosize, useSelect } from "@mui/base";
 import { Avatar, TextField } from "@mui/material";
 import { Input } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { uploadList, getList } from "../store/postReducer";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../shared/firebase";
 
 const Upload = () => {
+  const [uploadInfo, setUploadInfo] = useState({
+    title: "",
+    content: "",
+    imageUrl: "",
+  });
+  const [previewImg, setPreviewImg] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(uploadInfo);
+    dispatch(uploadList(uploadInfo));
+  };
+  const encodeFileToBase64 = (fileBlob) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise(() => {
+      reader.onload = () => {
+        setPreviewImg(reader.result);
+      };
+    });
+  };
+
+  // 파이어베이스 storage에 이미지 저장 후 url 추출
+  const uploadFB = async (e) => {
+    const selectedFile = e.target.files;
+    const uploaded_file = await uploadBytes(
+      ref(storage, `images/${selectedFile[0].name}`),
+      selectedFile[0]
+    );
+
+    const downloaded_URL = await getDownloadURL(
+      ref(storage, `images/${selectedFile[0].name}`)
+    );
+    setUploadInfo({ ...uploadInfo, imageUrl: downloaded_URL });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    setUploadInfo({ ...uploadInfo, [name]: value });
+  };
+
+  useEffect(() => {}, []);
+
   return (
     <UploadStyle>
       <FormWrap>
-        <FormStyle encType="multipart/form-data">
+        <FormStyle encType="multipart/form-data" onSubmit={handleSubmit}>
           <ColumnWrap>
             <ColumnLeft>
               <Label htmlFor="input-file" className="img_label">
                 이미지업로드
+                {previewImg && (
+                  <ImgPreview src={previewImg} alt="preview-img"></ImgPreview>
+                )}
                 <FileInput
                   multiple
                   type="file"
                   accept="image/*"
                   id="input-file"
                   style={{ display: "none" }}
+                  onChange={(e) => {
+                    encodeFileToBase64(e.target.files[0]);
+                    uploadFB(e);
+                  }}
                 />
               </Label>
             </ColumnLeft>
+
             <ColumnRight>
               <SubmitInput type="submit" value="저장" />
 
-              <TextField placeholder="제목" name="title" />
+              <TextField
+                placeholder="제목"
+                name="title"
+                onChange={handleChange}
+              />
 
               <UserProfileWrap>
-                <Avatar small />
+                <Avatar size="small" />
                 <span>vennydev</span>
               </UserProfileWrap>
 
@@ -46,6 +108,7 @@ const Upload = () => {
                   padding: "16.5px 14px",
                   border: "#fff",
                 }}
+                onChange={handleChange}
               />
             </ColumnRight>
           </ColumnWrap>
@@ -92,6 +155,7 @@ const ColumnWrap = styled.div`
 `;
 
 const Label = styled.label`
+  position: relative;
   background-color: #eaedef;
   cursor: pointer;
   height: 100%;
@@ -104,6 +168,20 @@ const Label = styled.label`
   :hover {
     background-color: #bcbcbc;
     color: white;
+  }
+`;
+
+const ImgPreview = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 6px;
+  z-index: 999;
+  :hover {
+    background-color: #bcbcbc;
   }
 `;
 
@@ -153,7 +231,7 @@ const SubmitInput = styled.input`
   text-align: center;
   padding-left: 12px;
   margin-bottom: 20px;
-  position: relative;
+  align-self: flex-end;
   :hover {
     background-color: silver;
   }

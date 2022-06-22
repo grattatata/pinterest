@@ -1,147 +1,102 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import "../styles/postDetail.css";
 
-import { TextareaAutosize } from "@mui/base";
-import { TextField } from "@mui/material";
 import Input from "../elements/Input";
 import UserImage from "../elements/UserImage";
+import { useDispatch, useSelector } from "react-redux";
+import { deletePost, getPostDetail } from "../store/postReducer";
+import { getComments } from "../store/commentReducer";
+
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const PostDetail = () => {
+  const params = useParams();
+  const postId = Number(params.postId);
+  const dispatch = useDispatch();
+  const post = useSelector((state) => state.postReducer);
+  const comment = useSelector((state) => state.commentReducer);
+  console.log(post);
+  console.log(comment);
+
+  useEffect(() => {
+    dispatch(getPostDetail(postId));
+  }, []);
+
+  const handleDelete = () => {
+    dispatch(deletePost(postId));
+  };
+
   return (
     <PostDetailStyle>
-      <FormWrap>
-        <FormStyle encType="multipart/form-data">
-          <ColumnWrap>
-            <ColumnLeft>
-              <Label htmlFor="input-file" className="img_label">
-                이미지업로드
-                <FileInput
-                  multiple
-                  type="file"
-                  accept="image/*"
-                  id="input-file"
-                  style={{ display: "none" }}
-                />
-              </Label>
-            </ColumnLeft>
+      {post[0]?.postDetail?.title !== undefined ? (
+        <FormWrap>
+          <FormStyle encType="multipart/form-data">
+            <ColumnWrap>
+              <ColumnLeft>
+                <Label htmlFor="input-file" className="img_label">
+                  <ImageTag src={post[0].postDetail.imageUrl} alt="image" />
+                </Label>
+              </ColumnLeft>
 
-            <ColumnRight>
-              {/* SubmitButtonWrap */}
-              <SubmitInput type="submit" value="저장" />
+              <ColumnRight>
+                {/* SubmitButtonWrap */}
+                <ButtonContainer>
+                  <LeftBtns>
+                    <ContentCopyIcon className="button" />
+                    <PrivateBtn>
+                      <EditIcon className="button" />
+                      <DeleteIcon onClick={handleDelete} className="button" />
+                    </PrivateBtn>
+                  </LeftBtns>
 
-              {/* MetaInfoWrap */}
-              <div>
-                <ContentsInfo>
-                  <MetaInfo>
-                    <ContentsTitle>My favorite picture</ContentsTitle>
-                    <ContentsText>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Voluptate odit minus quo quia quam corrupti illum,
-                      delectus quas id voluptatibus ratione, velit itaque
-                      veritatis neque explicabo at labore alias sequi?
-                    </ContentsText>
-                  </MetaInfo>
-                  <UserProfileWrap>
-                    <UserImage size="small" />
-                    <span>Leonardo</span>
-                  </UserProfileWrap>
-                </ContentsInfo>
+                  <SubmitInput type="submit" value="저장" />
+                </ButtonContainer>
 
-                <CommentsContents>
-                  <CommentCount>
-                    댓글<span>3개</span>
-                  </CommentCount>
-                  <CommentsLists>
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>vennydev</CommentAuthor>
-                        <CommentText>
-                          이런 그림은 어떻게 그리시죠? 대단하시넹요!
-                        </CommentText>
-                      </CommentWrap>
-                    </Comment>
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>supsuplee</CommentAuthor>
-                        <CommentText>진심...대박</CommentText>
-                      </CommentWrap>
-                    </Comment>{" "}
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>sup421</CommentAuthor>
-                        <CommentText>오바한다;</CommentText>
-                      </CommentWrap>
-                    </Comment>
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>sup421</CommentAuthor>
-                        <CommentText>오바한다;</CommentText>
-                      </CommentWrap>
-                    </Comment>{" "}
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>sup421</CommentAuthor>
-                        <CommentText>오바한다;</CommentText>
-                      </CommentWrap>
-                    </Comment>{" "}
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>sup421</CommentAuthor>
-                        <CommentText>오바한다;</CommentText>
-                      </CommentWrap>
-                    </Comment>
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>sup421</CommentAuthor>
-                        <CommentText>오바한다;</CommentText>
-                      </CommentWrap>
-                    </Comment>
-                    <Comment>
-                      <UserProfileWrap>
-                        <UserImage size="small" />
-                      </UserProfileWrap>
-                      <CommentWrap>
-                        <CommentAuthor>sup421</CommentAuthor>
-                        <CommentText>오바한다;</CommentText>
-                      </CommentWrap>
-                    </Comment>
-                  </CommentsLists>
-                </CommentsContents>
+                <div>
+                  <ContentsInfo>
+                    <MetaInfo>
+                      <ContentsTitle>{post[0].postDetail.title}</ContentsTitle>
+                      <ContentsText>{post[0].postDetail.content}</ContentsText>
+                    </MetaInfo>
+                    <UserProfileWrap>
+                      <UserImage size="small" />
 
-                <CommentFill>
-                  <UserProfileWrap>
-                    <UserImage />
-                  </UserProfileWrap>
-                  <CommentInputWrap>
-                    <Input placeholder="댓글 추가" widthPer="100"></Input>
-                  </CommentInputWrap>
-                </CommentFill>
-              </div>
-            </ColumnRight>
-          </ColumnWrap>
-        </FormStyle>
-      </FormWrap>
+                      <span>{post[0].postDetail.nickname}</span>
+                    </UserProfileWrap>
+                  </ContentsInfo>
+
+                  <CommentsContents>
+                    <CommentCount>
+                      댓글<span>0개</span>
+                    </CommentCount>
+                    <CommentsLists>
+                      {/* map */}
+                      <UserProfileWrap>
+                        <UserImage size="small" />
+                        <span>{post[0].postDetail.nickname}</span>
+                        <p>{comment}</p>
+                      </UserProfileWrap>
+                    </CommentsLists>
+                  </CommentsContents>
+
+                  <CommentFill>
+                    <UserProfileWrap>
+                      <UserImage />
+                    </UserProfileWrap>
+                    <CommentInputWrap>
+                      <Input placeholder="댓글 추가" widthPer="100"></Input>
+                    </CommentInputWrap>
+                  </CommentFill>
+                </div>
+              </ColumnRight>
+            </ColumnWrap>
+          </FormStyle>
+        </FormWrap>
+      ) : null}
     </PostDetailStyle>
   );
 };
@@ -182,25 +137,28 @@ const ColumnWrap = styled.div`
   justify-content: space-between;
 `;
 
+const ColumnLeft = styled.div`
+  height: 100%;
+  width: 45%;
+  display: Flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
 const Label = styled.div`
-  background-color: #eaedef;
-  cursor: pointer;
-  height: 60vh;
+  /* height: 60vh; */
+  height: 600px;
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s linear;
-  color: #bcbcbc;
-  :hover {
-    background-color: #bcbcbc;
-    color: white;
-  }
 `;
 
-const FileInput = styled.input`
-  cursor: pointer;
-  width: 150px;
+const ImageTag = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const ColumnRight = styled.div`
@@ -213,13 +171,17 @@ const ColumnRight = styled.div`
   align-content: right;
 `;
 
-const ColumnLeft = styled.div`
-  height: 100%;
-  width: 45%;
+const ButtonContainer = styled.div`
   display: Flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
 `;
+
+const LeftBtns = styled.div`
+  display: Flex;
+`;
+
+const PrivateBtn = styled.div``;
 
 const SubmitInput = styled.input`
   display: inline-block;
@@ -236,9 +198,7 @@ const SubmitInput = styled.input`
   font-size: 15px;
   text-align: center;
   padding-left: 12px;
-  margin-bottom: 20px;
-  /* position: relative;
-  left: 290px; */
+  position: relative;
   align-self: end;
   :hover {
     background-color: silver;
