@@ -1,7 +1,8 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, current } from "@reduxjs/toolkit";
 import axios from "axios";
 import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "../shared/cookie";
+import { Action } from "history";
 
 export const getList = createAsyncThunk("LOAD_POST", async () => {
   // access token 이름 받아오기
@@ -13,7 +14,7 @@ export const getList = createAsyncThunk("LOAD_POST", async () => {
   return response.data;
 });
 
-export const addList = createAsyncThunk("ADD_POST", async (new_list) => {
+export const uploadList = createAsyncThunk("ADD_POST", async (new_list) => {
   const response = await axios.post(
     "http://dlckdals04.shop/api/post/upload",
     new_list,
@@ -36,10 +37,24 @@ export const getPostDetail = createAsyncThunk(
         },
       })
       .catch((error) => console.log(error));
-    console.log(response.data);
     return response.data;
   }
 );
+
+export const updatePost = createAsyncThunk("UPDATE_POST", async (param) => {
+  console.log(param.postId, param.uploadInfo);
+  const response = await axios.put(
+    `http://dlckdals04.shop/api/post/postdetail/edit/${param.postId}`,
+    param.uploadInfo,
+    {
+      headers: {
+        Authorization: `Bearer ${getCookie("myToken")}`,
+      },
+    }
+  );
+  console.log(response);
+  return response;
+});
 
 export const deletePost = createAsyncThunk("DELETE_POST", async (postId) => {
   const response = await axios
@@ -49,8 +64,8 @@ export const deletePost = createAsyncThunk("DELETE_POST", async (postId) => {
       },
     })
     .catch((error) => console.log(error));
-  console.log(response);
-  return response;
+  console.log(response.data);
+  return response.data;
 });
 
 export const postReducer = createSlice({
@@ -59,8 +74,12 @@ export const postReducer = createSlice({
   reducers: {},
   extraReducers: {
     [getList.fulfilled]: (state, { payload }) => [...payload],
-    [addList.fulfilled]: (state, { payload }) => [...state, payload],
+    [uploadList.fulfilled]: (state, { payload }) => [...state, payload],
     [getPostDetail.fulfilled]: (state, { payload }) => [payload],
-    [deletePost.fulfilled]: (state, { payload }) => [payload],
+    [deletePost.fulfilled]: (state, { payload }) => [state],
+    [updatePost.fulfilled]: (state, { payload }) => {
+      // console.log(state, payload);
+      return [payload];
+    },
   },
 });

@@ -11,5 +11,10 @@ const reducer = combineReducers({ postReducer: postReducer.reducer });
 
 export default configureStore({
   reducer,
-  middleware: [...getDefaultMiddleware(), logger],
+  middleware: [
+    ...getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+    logger,
+  ],
 });
