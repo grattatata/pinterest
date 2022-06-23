@@ -3,17 +3,19 @@ import styled from "styled-components";
 
 const Input = (props) => {
   // 변수 props
-  const { widthPer, widthPx, name } = props;
+  const { widthPer, widthPx, name, value, marginLeft } = props;
   // 함수 props
   const { handleChange } = props;
   return (
     <>
       <InputStyle
+        value={value}
         type="text"
         placeholder={props.placeholder}
         style={{ width: widthPer ? widthPer : widthPx }}
         onChange={handleChange}
         name={name}
+        marginLeft={marginLeft}
       ></InputStyle>
     </>
   );
