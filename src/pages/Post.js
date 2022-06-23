@@ -6,9 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { getList } from "../store/postReducer";
 import Pin from "../elements/Pin";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-
 import styled from "styled-components";
-import "../styles/Post.css";
+import "../styles/post.css";
 
 const Post = () => {
   const [posts, setPosts] = useState([]);
@@ -17,7 +16,6 @@ const Post = () => {
   const postList = useSelector((state) => state.postReducer);
 
   const ClickToDetail = (postId) => {
-    console.log(postId);
     navigate(`/post/postdetail/${postId}`);
   };
 
@@ -39,7 +37,7 @@ const Post = () => {
           return (
             <Pin
               key={i}
-              imageUrl={postList[i].imageUrl}
+              imageUrl={pin.imageUrl}
               clickEvent={() => {
                 ClickToDetail(pin.postId);
               }}

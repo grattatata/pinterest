@@ -105,10 +105,7 @@ const Upload = () => {
                 onChange={handleChange}
               />
 
-              <UserProfileWrap>
-                <Avatar size="small" />
-                <span>vennydev</span>
-              </UserProfileWrap>
+              <UserProfileWrap></UserProfileWrap>
 
               <TextareaAutosize
                 maxRows="4"
@@ -121,7 +118,7 @@ const Upload = () => {
                   resize: "none",
                   fontSize: "16px",
                   padding: "16.5px 14px",
-                  border: "#fff",
+                  border: "black",
                 }}
                 onChange={handleChange}
               />

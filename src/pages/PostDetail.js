@@ -67,7 +67,7 @@ const PostDetail = () => {
                     </PrivateBtn>
                   </LeftBtns>
 
-                  <SubmitInput type="submit" value="수정" />
+                  <SubmitInput type="submit" value="저장" />
                 </ButtonContainer>
 
                 <div>
@@ -263,27 +263,6 @@ const CommentsLists = styled.ul`
   flex-direction: column;
   gap: 10px;
   margin: 10px 0px;
-`;
-
-const Comment = styled.ul`
-  display: Flex;
-  align-items: center;
-`;
-
-const CommentWrap = styled.div`
-  width: 85%;
-`;
-
-const CommentAuthor = styled.div`
-  font-weight: 700;
-  font-size: 16px;
-  display: inline;
-  margin-right: 4px;
-`;
-
-const CommentText = styled.span`
-  font-size: 14px;
-  line-height: 20px;
 `;
 
 const CommentFill = styled.div`

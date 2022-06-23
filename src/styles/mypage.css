@@ -40,6 +40,7 @@
   cursor: pointer;
   position: relative;
   border-radius: 16px;
+  overflow: hidden;
 }
 
 .grid-item img {
@@ -64,6 +65,11 @@
   box-sizing: border-box;
 }
 
+.grid-item:hover img {
+  transform: scale(1.1);
+  transition: transform 0.3s;
+}
+
 .grid-item:hover .hover-bg {
   opacity: 1;
   z-index: 999;
@@ -85,4 +91,20 @@
   font-size: 16px;
   font-weight: 700;
   margin: 0px 15px;
+}
+
+.button {
+  font-size: 26px;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 7px;
+  margin-right: 5px;
+  background-color: #e1e1e1;
+  color: black;
+  bottom: 5px;
+  right: 5px;
+}
+
+.edit-btn {
+  right: 62px;
 }
