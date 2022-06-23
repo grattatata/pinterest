@@ -17,6 +17,7 @@ const ButtonEle = (props) => {
     right,
     bottom,
     overflow,
+    marginLeft,
   } = props;
 
   const { handleClick } = props;
@@ -27,6 +28,7 @@ const ButtonEle = (props) => {
         variant="contained"
         style={{
           marginRight: marginRight,
+          marginLeft: marginLeft,
           backgroundColor: backgroundColor,
           borderRadius: "20px",
           color: color,

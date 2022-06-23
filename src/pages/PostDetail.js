@@ -1,25 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import "../styles/postDetail.css";
 
 import Input from "../elements/Input";
 import UserImage from "../elements/UserImage";
+import ButtonEle from "../elements/ButtonEle";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost, getPostDetail } from "../store/postReducer";
-import { getComments } from "../store/commentReducer";
+import {
+  uploadComment,
+} from "../store/commentReducer";
 
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const PostDetail = () => {
-  const navigate = useNavigate();
+  const [content, setContent] = useState("");
   const params = useParams();
   const postId = Number(params.postId);
   const dispatch = useDispatch();
   const post = useSelector((state) => state.postReducer);
-  console.log(post);
 
   const handleDelete = async () => {
     if (
@@ -31,18 +33,22 @@ const PostDetail = () => {
       navigate("/post");
       alert("게시물이 삭제되었습니다");
     }
-    // if(a.payload.success){
-    //   alert("게시물이 삭제되었습니다");
-    // }
   };
 
   const handleEdit = () => {
     navigate(`/update/${postId}`, { state: post });
   };
 
-  useEffect(() => {
+  const submitComment = () => {
+    dispatch(uploadComment({ postId: postId, content: content }));
+    console.log(content);
+    setContent("");
+  };
+
+    useEffect(() => {
     dispatch(getPostDetail(postId));
   }, []);
+
 
   return (
     <PostDetailStyle>
@@ -57,7 +63,6 @@ const PostDetail = () => {
               </ColumnLeft>
 
               <ColumnRight>
-                {/* SubmitButtonWrap */}
                 <ButtonContainer>
                   <LeftBtns>
                     <ContentCopyIcon className="button" />
@@ -78,14 +83,13 @@ const PostDetail = () => {
                     </MetaInfo>
                     <UserProfileWrap>
                       <UserImage size="small" />
-
                       <span>{post[0].postDetail.nickname}</span>
                     </UserProfileWrap>
                   </ContentsInfo>
 
                   <CommentsContents>
                     <CommentCount>
-                      댓글<span>0개</span>
+                      댓글<span>{post[0].existcomments.length}</span>개
                     </CommentCount>
                     <CommentsLists>
                       {/* map */}
@@ -94,6 +98,21 @@ const PostDetail = () => {
                         <span>{post[0].postDetail.nickname}</span>
                       </UserProfileWrap>
                     </CommentsLists>
+                    {post[0].existcomments.map((a, i) => {
+                      console.log(post[0].existcomments[i].commentId);
+                      return (
+                        <CommentsLists key={i}>
+                          <UserProfileWrap style={{ width: "40%" }}>
+                            <UserImage size="small" />
+                            <span>{post[0].existcomments[i].nickname}</span>
+                          </UserProfileWrap>
+                          <div style={{ marginTop: "10px" }}>
+                            {post[0].existcomments[i].comment}
+                          </div>
+                         
+                        </CommentsLists>
+                      )
+                    })}
                   </CommentsContents>
 
                   <CommentFill>
@@ -101,8 +120,24 @@ const PostDetail = () => {
                       <UserImage />
                     </UserProfileWrap>
                     <CommentInputWrap>
-                      <Input placeholder="댓글 추가" widthPer="100"></Input>
+                      <Input
+                        value={content}
+                        type="text"
+                        placeholder="댓글 추가"
+                        widthPer="100"
+                        handleChange={(e) => {
+                          setContent(e.target.value);
+                        }}
+                      ></Input>
                     </CommentInputWrap>
+                    <ButtonEle
+                      handleClick={submitComment}
+                      widthPer="20%"
+                      marginLeft="15px"
+                      backgroundColor="white"
+                      color="#3E3D3B"
+                      text="작성"
+                    />
                   </CommentFill>
                 </div>
               </ColumnRight>
@@ -244,8 +279,9 @@ const UserProfileWrap = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  width: 15%;
+  width: 25%;
   margin-top: 10px;
+  font-weight: bold;
 `;
 
 // = styled.div``;
@@ -260,16 +296,20 @@ const CommentCount = styled.div``;
 
 const CommentsLists = styled.ul`
   display: Flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
   gap: 10px;
   margin: 10px 0px;
 `;
 
 const CommentFill = styled.div`
   display: Flex;
+  align-items: center;
 `;
 
 const CommentInputWrap = styled.div`
+  margin-top: 10px;
   width: 85%;
 `;
 export default PostDetail;
