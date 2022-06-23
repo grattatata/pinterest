@@ -16,6 +16,7 @@ const ButtonEle = (props) => {
     left,
     right,
     bottom,
+    overflow,
     marginLeft,
   } = props;
 
@@ -40,6 +41,7 @@ const ButtonEle = (props) => {
           left: left,
           right: right,
           bottom: bottom,
+          overflow: overflow,
         }}
       >
         {text}

@@ -78,64 +78,66 @@ const Update = (navigation) => {
 
   return (
     <UploadStyle>
-      <FormWrap>
-        <FormStyle encType="multipart/form-data" onSubmit={handleSubmit}>
-          <ColumnWrap>
-            <ColumnLeft>
-              <Label htmlFor="input-file" className="img_label">
-                이미지업로드
-                {previewImg && (
-                  <ImgPreview src={previewImg} alt="preview-img"></ImgPreview>
-                )}
-                <FileInput
-                  multiple
-                  type="file"
-                  accept="image/*"
-                  id="input-file"
-                  style={{ display: "none" }}
-                  onChange={(e) => {
-                    encodeFileToBase64(e.target.files[0]);
-                    uploadFB(e);
-                  }}
+      {state && (
+        <FormWrap>
+          <FormStyle encType="multipart/form-data" onSubmit={handleSubmit}>
+            <ColumnWrap>
+              <ColumnLeft>
+                <Label htmlFor="input-file" className="img_label">
+                  이미지업로드
+                  {previewImg && (
+                    <ImgPreview src={previewImg} alt="preview-img"></ImgPreview>
+                  )}
+                  <FileInput
+                    multiple
+                    type="file"
+                    accept="image/*"
+                    id="input-file"
+                    style={{ display: "none" }}
+                    onChange={(e) => {
+                      encodeFileToBase64(e.target.files[0]);
+                      uploadFB(e);
+                    }}
+                  />
+                </Label>
+              </ColumnLeft>
+
+              <ColumnRight>
+                <SubmitInput type="submit" value="저장" />
+
+                <TextField
+                  placeholder="제목"
+                  name="title"
+                  defaultValue={state[0].postDetail.title}
+                  onChange={handleChange}
                 />
-              </Label>
-            </ColumnLeft>
 
-            <ColumnRight>
-              <SubmitInput type="submit" value="저장" />
+                <UserProfileWrap>
+                  <Avatar size="small" />
+                  <span>vennydev</span>
+                </UserProfileWrap>
 
-              <TextField
-                placeholder="제목"
-                name="title"
-                defaultValue={state[0].postDetail.title}
-                onChange={handleChange}
-              />
-
-              <UserProfileWrap>
-                <Avatar size="small" />
-                <span>vennydev</span>
-              </UserProfileWrap>
-
-              <TextareaAutosize
-                maxRows="4"
-                aria-label="maximum height"
-                placeholder="내용"
-                name="content"
-                style={{
-                  width: "100%",
-                  height: "80%",
-                  resize: "none",
-                  fontSize: "16px",
-                  padding: "16.5px 14px",
-                  border: "#fff",
-                }}
-                onChange={handleChange}
-                defaultValue={state[0].postDetail.content}
-              />
-            </ColumnRight>
-          </ColumnWrap>
-        </FormStyle>
-      </FormWrap>
+                <TextareaAutosize
+                  maxRows="4"
+                  aria-label="maximum height"
+                  placeholder="내용"
+                  name="content"
+                  style={{
+                    width: "100%",
+                    height: "80%",
+                    resize: "none",
+                    fontSize: "16px",
+                    padding: "16.5px 14px",
+                    border: "#fff",
+                  }}
+                  onChange={handleChange}
+                  defaultValue={state[0].postDetail.content}
+                />
+              </ColumnRight>
+            </ColumnWrap>
+          </FormStyle>
+        </FormWrap>
+      )}
     </UploadStyle>
   );
 };

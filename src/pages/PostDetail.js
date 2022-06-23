@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { deletePost, getPostDetail } from "../store/postReducer";
 import {
   uploadComment,
-  // updateComment,
-  // deleteComment,
 } from "../store/commentReducer";
 
 import EditIcon from "@mui/icons-material/Edit";
@@ -20,15 +18,10 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const PostDetail = () => {
   const [content, setContent] = useState("");
-  // const [editContent, setEditContent] = useState("");
   const params = useParams();
   const postId = Number(params.postId);
   const dispatch = useDispatch();
   const post = useSelector((state) => state.postReducer);
-
-  useEffect(() => {
-    dispatch(getPostDetail(postId));
-  }, []);
 
   const handleDelete = async () => {
     if (
@@ -40,9 +33,6 @@ const PostDetail = () => {
       navigate("/post");
       alert("게시물이 삭제되었습니다");
     }
-    // if(a.payload.success){
-    //   alert("게시물이 삭제되었습니다");
-    // }
   };
 
   const handleEdit = () => {
@@ -55,11 +45,10 @@ const PostDetail = () => {
     setContent("");
   };
 
-  // const submitEditComment = (commentId) => {
-  //   dispatch(updateComment({ postId: postId, editContent: editContent }));
-  //   console.log(editContent);
-  //   setEditContent("");
-  // };
+    useEffect(() => {
+    dispatch(getPostDetail(postId));
+  }, []);
+
 
   return (
     <PostDetailStyle>
@@ -74,7 +63,6 @@ const PostDetail = () => {
               </ColumnLeft>
 
               <ColumnRight>
-                {/* SubmitButtonWrap */}
                 <ButtonContainer>
                   <LeftBtns>
                     <ContentCopyIcon className="button" />
@@ -84,7 +72,7 @@ const PostDetail = () => {
                     </PrivateBtn>
                   </LeftBtns>
 
-                  <SubmitInput type="submit" value="수정" />
+                  <SubmitInput type="submit" value="저장" />
                 </ButtonContainer>
 
                 <div>
@@ -103,6 +91,13 @@ const PostDetail = () => {
                     <CommentCount>
                       댓글<span>{post[0].existcomments.length}</span>개
                     </CommentCount>
+                    <CommentsLists>
+                      {/* map */}
+                      <UserProfileWrap>
+                        <UserImage size="small" />
+                        <span>{post[0].postDetail.nickname}</span>
+                      </UserProfileWrap>
+                    </CommentsLists>
                     {post[0].existcomments.map((a, i) => {
                       console.log(post[0].existcomments[i].commentId);
                       return (
@@ -114,21 +109,9 @@ const PostDetail = () => {
                           <div style={{ marginTop: "10px" }}>
                             {post[0].existcomments[i].comment}
                           </div>
-                          {/* <ButtonEle
-                            handleClick={submitEditComment}
-                            widthPer="20%"
-                            backgroundColor="white"
-                            color="#3E3D3B"
-                            text="수정"
-                          />
-                          <ButtonEle
-                            widthPer="20%"
-                            backgroundColor="white"
-                            color="#3E3D3B"
-                            text="삭제"
-                          /> */}
+                         
                         </CommentsLists>
-                      );
+                      )
                     })}
                   </CommentsContents>
 
@@ -318,27 +301,6 @@ const CommentsLists = styled.ul`
   width: 100%;
   gap: 10px;
   margin: 10px 0px;
-`;
-
-const Comment = styled.ul`
-  display: Flex;
-  align-items: center;
-`;
-
-const CommentWrap = styled.div`
-  width: 85%;
-`;
-
-const CommentAuthor = styled.div`
-  font-weight: 700;
-  font-size: 16px;
-  display: inline;
-  margin-right: 4px;
-`;
-
-const CommentText = styled.span`
-  font-size: 14px;
-  line-height: 20px;
 `;
 
 const CommentFill = styled.div`

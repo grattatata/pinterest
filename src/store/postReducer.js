@@ -38,7 +38,6 @@ export const getPostDetail = createAsyncThunk(
 );
 
 export const updatePost = createAsyncThunk("UPDATE_POST", async (param) => {
-  console.log(param.postId, param.uploadInfo);
   const response = await axios.put(
     `http://dlckdals04.shop/api/post/postdetail/edit/${param.postId}`,
     param.uploadInfo,
