@@ -1,54 +1,11 @@
-import React, { useState } from "react";
-import Input from "../elements/Input";
-import ButtonEle from "../elements/ButtonEle";
+import React from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPinterest } from "@fortawesome/free-brands-svg-icons";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-
-import "../styles/LoginNSignup.css";
-import axios from "axios";
-
-const Login = ({ closeModal, setIsLoginModalOpen, setIsSignupModalOpen }) => {
-  const [signupValue, setSignupValue] = useState({
-    email: "",
-    nickname: "",
-    password: "",
-    passwordCheck: "",
-  });
-
-  const { email, nickname, password, passwordCheck } = signupValue;
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setSignupValue({ ...signupValue, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    axios
-      .post("/user/signup", signupValue)
-      .then((response) => {
-        alert(response.data.message);
-        setIsSignupModalOpen(false);
-        setIsLoginModalOpen(true);
-      })
-      .catch((error) => alert(error.response.data.message));
-  };
-
+const Signup = () => {
   return (
     <div className="modalBackground">
       <div className="signup-default-modal">
         <div className="modalContainer">
-          <FontAwesomeIcon
-            style={{
-              fontSize: "30px",
-              color: "#E60B23",
-            }}
-            icon={faPinterest}
-          />
-          <h1 className="login-title">Hangterest에 오신 것을 환영합니다</h1>
+          <h1 className="login-title">pinterest 오신 것을 환영합니다</h1>
           <div className="FormWrap">
             <form className="registerForm">
               <div>
@@ -120,14 +77,7 @@ const Login = ({ closeModal, setIsLoginModalOpen, setIsSignupModalOpen }) => {
               </b>
             </span>
             <footer className="footer">
-              <div>
-                frontEnd
-                <b>이형섭님. 이담님</b>
-              </div>
-              <div>
-                backEnd
-                <b>이창민님. 정연욱님. 정오현님</b>
-              </div>
+              <p>푸터</p>
             </footer>
           </div>
           <HighlightOffIcon className="Xicon" onClick={closeModal} />

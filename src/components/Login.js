@@ -1,87 +1,17 @@
-import React, { useState } from "react";
-import Input from "../elements/Input";
-import ButtonEle from "../elements/ButtonEle";
+import React from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPinterest } from "@fortawesome/free-brands-svg-icons";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-
-import "../styles/LoginNSignup.css";
-import axios from "axios";
-import { getCookie, setCookie } from "../shared/cookie";
-import { useNavigate } from "react-router-dom";
-
-const Login = ({
-  setIsLogin,
-  closeModal,
-  setIsLoginModalOpen,
-  setIsSignupModalOpen,
-}) => {
-  const [loginValue, setLoginValue] = useState({
-    email: "",
-    password: "",
-  });
-  const headers = { withCredentials: true };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLoginValue({ ...loginValue, [name]: value });
-  };
-
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("서버로 회원가입 데이터를 보냅니다.");
-    axios
-      .post("/user/login", loginValue)
-      .then((response) => {
-        const { accessToken } = response.data;
-        setCookie("myToken", accessToken);
-
-        axios.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${accessToken}`;
-
-        navigate("/post");
-        alert("로그인에 성공하였습니다!");
-        setIsLogin(true);
-        setIsLoginModalOpen(false);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  // const onSilentRefresh = () => {
-  //   axios.post("/");
-  // };
-
-  // const onLoginSuccess = (response) => {
-  //   const { accessToken } = response.data;
-
-  //   axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-
-  //   setTimeout(onSilentRefresh, JWT_EXPIRRY_TIME - 60000);
-  // };
-
+const Login = () => {
   return (
     <div className="modalBackground">
       <div className="signup-default-modal">
         <div className="modalContainer">
-          <FontAwesomeIcon
-            style={{
-              fontSize: "30px",
-              color: "#E60B23",
-            }}
-            icon={faPinterest}
-          />
-          <h1 className="login-title">Hangterest에 오신 것을 환영합니다</h1>
+          <h1 className="login-title">pinterest 오신 것을 환영합니다</h1>
           <div className="FormWrap">
             <form className="registerForm">
               <div>
                 <label className="label">이메일</label>
                 <Input
                   placeholder="이메일"
-                  widthPer="100%"
                   handleChange={handleChange}
                   name="email"
                 />
@@ -129,14 +59,7 @@ const Login = ({
               </b>
             </span>
             <footer className="footer">
-              <div>
-                frontEnd
-                <b>이형섭님. 이담님</b>
-              </div>
-              <div>
-                backEnd
-                <b>이창민님. 정연욱님. 정오현님</b>
-              </div>
+              <p>푸터</p>
             </footer>
           </div>
           <HighlightOffIcon className="Xicon" onClick={closeModal} />

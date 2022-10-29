@@ -1,26 +1,6 @@
 import React from "react";
-import { Button } from "@mui/material";
 
-const ButtonEle = (props) => {
-  const {
-    marginRight,
-    backgroundColor,
-    color,
-    margin,
-    widthPer,
-    fontSize,
-    height,
-    text,
-    position,
-    top,
-    left,
-    right,
-    bottom,
-    overflow,
-    marginLeft,
-  } = props;
-
-  const { handleClick } = props;
+const ButtonEle = () => {
   return (
     <>
       <Button
